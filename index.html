@@ -7,107 +7,131 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #a0d8ef, #e0f7ff);
-      color: #003049;
+      font-family: 'Arial', sans-serif;
+      background-color: black;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
     }
 
     .banner {
-      background-color: #d0f0ff;
-      padding: 20px;
       width: 100%;
+      height: 20vh;
+      background: url('llofi-banner.png') no-repeat center center;
+      background-size: cover;
     }
 
-    .banner img {
-      max-width: 100%;
-      max-height: 400px;
-      height: auto;
-      border-radius: 10px;
-      object-fit: contain;
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      padding: 30px 20px;
+      gap: 60px;
+      flex-wrap: wrap;
     }
 
-    .info-section {
-      margin-top: 30px;
-      padding: 0 20px;
-      max-width: 600px;
+    .left-text {
+      flex: 1;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
     }
 
-    .info-section h1 {
-      color: #005f73;
+    .left-text h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #6dd1ff;
+    }
+
+    .left-text p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.5;
     }
 
     .buttons {
-      margin-top: 30px;
       display: flex;
       flex-direction: column;
       gap: 15px;
+      align-items: center;
     }
 
-    .buttons a,
-    .buttons button {
-      text-decoration: none;
-      background-color: #007aff;
-      color: white;
+    .btn {
       padding: 12px 24px;
-      border-radius: 25px;
-      font-weight: bold;
+      font-size: 16px;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+      background-color: #6dd1ff;
+      color: black;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .buttons a:hover,
-    .buttons button:hover {
-      background-color: #007aff;
-      box-shadow: 0 0 15px rgba(173, 216, 230, 0.8),
-                  0 0 25px rgba(173, 216, 230, 0.6),
-                  inset 0 0 10px rgba(255, 255, 255, 0.4);
-      transform: scale(1.03);
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #6dd1ff;
     }
 
-    footer {
-      margin-top: 50px;
-      padding: 20px;
+    .btn.freeze {
+      background: #a4e9ff;
+      box-shadow: inset 0 0 10px #ffffff44, 0 0 10px #a4e9ff;
+    }
+
+    .copy-message {
+      margin-top: 10px;
       font-size: 14px;
-      color: #555;
+      color: #00ffcc;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .left-text {
+        align-items: center;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="banner"></div>
 
-  <div class="banner">
-    <img src="llofi_hundimiento_color.gif" alt="LittleLofi Banner" />
+  <div class="container">
+    <div class="left-text">
+      <h1>$LLOFI / SUI Pool on CETUS</h1>
+      <p>Made with love by the community 💙</p>
+      <p>🛡️ Open liquidity</p>
+      <p>🚫 No presale or insiders</p>
+      <p>We're here to stay 💙</p>
+    </div>
+
+    <div class="buttons">
+      <a href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" class="btn freeze" target="_blank">Twitter (X)</a>
+      <a href="https://t.me/LittleLofiOfficial" class="btn freeze" target="_blank">Telegram</a>
+      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" class="btn freeze" target="_blank">Buy on Cetus</a>
+      <button class="btn freeze" onclick="copyContract()">Copy Contract</button>
+      <div class="copy-message" id="copyMsg">✅ Copied!</div>
+    </div>
   </div>
-
-  <div class="info-section">
-    <h1>$LLOFI / SUI Pool on CETUS</h1>
-    <p>Made with love by the community 💙</p>
-    <p>🛡️ Open liquidity</p>
-    <p>🚫 No presale or insiders</p>
-    <p>We're here to stay</p>
-  </div>
-
-  <div class="buttons">
-    <a href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" target="_blank">Follow us on X</a>
-    <a href="https://t.me/LittleLofiOfficial" target="_blank">Join our Telegram</a>
-    <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">Trade on CETUS</a>
-    <button onclick="copyContract()">Copy Contract</button>
-  </div>
-
-  <footer>
-    Made with 💙 by the LittleLofi Community
-  </footer>
 
   <script>
     function copyContract() {
-      const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
+      const contract = '0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI';
       navigator.clipboard.writeText(contract).then(() => {
-        alert("Contract copied to clipboard!");
+        const msg = document.getElementById('copyMsg');
+        msg.style.display = 'block';
+        setTimeout(() => {
+          msg.style.display = 'none';
+        }, 2000);
       });
     }
   </script>
