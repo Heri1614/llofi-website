@@ -13,7 +13,6 @@
       overflow-x: hidden;
     }
 
-    /* Copos de nieve animados */
     .snowflake {
       position: fixed;
       top: -10px;
@@ -34,16 +33,14 @@
       }
     }
 
-    /* Banner superior */
     .banner {
       width: 100%;
       height: 20vh;
-      background-image: url('llofi-banner.png');
+      background-image: url('BannerLL.png');
       background-size: cover;
       background-position: center;
     }
 
-    /* Título congelado */
     h1 {
       font-size: 3em;
       text-align: center;
@@ -110,7 +107,6 @@
       background: #a1e8ff;
     }
 
-    /* Texto debajo del botón */
     #copyMsg {
       color: white;
       margin-top: 10px;
@@ -125,7 +121,6 @@
       box-shadow: 0 0 20px #69eaff;
     }
 
-    /* Responsive para móvil */
     @media screen and (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -145,24 +140,13 @@
   </style>
 </head>
 <body>
-
-  <!-- Copos de nieve -->
   <div id="snow"></div>
-
-  <!-- Banner superior -->
   <div class="banner"></div>
-
-  <!-- Título congelado -->
   <h1>LittleLofi</h1>
-
-  <!-- Contenido central -->
   <div class="container">
-    <!-- Imagen a la izquierda -->
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
-
-    <!-- Botones en el centro -->
     <div class="buttons">
       <button onclick="window.open('https://x.com/LittleLofiSui', '_blank')">Twitter</button>
       <button onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
@@ -170,15 +154,9 @@
       <button onclick="copyContract()">📋 Copy Contract</button>
       <div id="copyMsg"></div>
     </div>
-
-    <!-- Video a la derecha -->
     <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
-
-  <!-- Sonido de copiado -->
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
-
-  <!-- Script copiar contrato y nieve -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
@@ -191,7 +169,6 @@
       });
     }
 
-    // Copos de nieve ❄️ animados
     const snowContainer = document.getElementById("snow");
     for (let i = 0; i < 80; i++) {
       const snowflake = document.createElement("div");
@@ -204,6 +181,5 @@
       snowContainer.appendChild(snowflake);
     }
   </script>
-
 </body>
 </html>
