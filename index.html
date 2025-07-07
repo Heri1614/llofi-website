@@ -8,12 +8,12 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #000; /* Fondo negro */
+      background-color: #000;
       color: white;
       overflow-x: hidden;
     }
 
-    /* Copos de nieve */
+    /* ❄️ Copos de nieve animados */
     .snowflake {
       position: fixed;
       top: -10px;
@@ -36,7 +36,7 @@
       }
     }
 
-    /* Banner superior */
+    /* 🧊 Banner */
     .banner {
       width: 100%;
       height: 20vh;
@@ -44,19 +44,40 @@
       background-size: cover;
     }
 
-    /* Título congelado */
+    /* ❄️ Título congelado animado */
     .frozen-title {
-      font-size: 48px;
+      font-size: 50px;
       text-align: center;
-      color: #aee7ff;
+      color: #c8f5ff;
       margin-top: 10px;
-      text-shadow: 0 0 10px #ffffff, 0 0 20px #5ddcff;
       font-weight: bold;
-      transform: skew(-2deg);
+      text-shadow: 0 0 15px #ffffff, 0 0 25px #00eaff;
       font-family: 'Arial Black', sans-serif;
+      animation: freezeIn 4s ease-out forwards, shiver 2s infinite;
+      opacity: 0;
     }
 
-    /* Contenido general */
+    @keyframes freezeIn {
+      0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shiver {
+      0%, 100% { transform: translateY(0); }
+      25% { transform: translateY(-1px); }
+      50% { transform: translateY(1px); }
+      75% { transform: translateY(-1px); }
+    }
+
+    /* 🧊 Layout */
     .container {
       display: flex;
       justify-content: space-between;
@@ -82,9 +103,10 @@
       max-width: 400px;
       border: 2px solid #aee7ff;
       border-radius: 10px;
-      box-shadow: 0 0 10px #5ddcff;
+      box-shadow: 0 0 15px #5ddcff;
     }
 
+    /* 🔘 Botones */
     .buttons {
       display: flex;
       flex-direction: column;
@@ -103,9 +125,9 @@
       cursor: pointer;
       text-decoration: none;
       box-shadow: 0 0 15px #e0ffff, inset 0 5px 10px #ffffff66;
-      transition: transform 0.2s ease, background 0.3s ease;
       position: relative;
       overflow: hidden;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
     .frosted-button::before {
@@ -138,29 +160,30 @@
   </style>
 </head>
 <body>
-  <!-- Copos de nieve -->
+
+  <!-- ❄️ Copos de nieve -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const snowCount = 40;
+      const snowCount = 50;
       for (let i = 0; i < snowCount; i++) {
         const snowflake = document.createElement("div");
         snowflake.className = "snowflake";
         snowflake.textContent = "❄";
         snowflake.style.left = Math.random() * 100 + "vw";
         snowflake.style.animationDuration = 5 + Math.random() * 10 + "s";
-        snowflake.style.fontSize = 12 + Math.random() * 12 + "px";
+        snowflake.style.fontSize = 12 + Math.random() * 14 + "px";
         document.body.appendChild(snowflake);
       }
     });
   </script>
 
-  <!-- Banner -->
+  <!-- 🧊 Banner -->
   <div class="banner"></div>
 
-  <!-- Título congelado -->
+  <!-- Título animado congelado -->
   <div class="frozen-title">LittleLofi</div>
 
-  <!-- Contenido principal -->
+  <!-- Contenido -->
   <div class="container">
     <div class="left-section">
       <div class="buttons">
@@ -181,7 +204,7 @@
     </div>
   </div>
 
-  <!-- Script copiar contrato -->
+  <!-- 📋 Script para copiar contrato -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
