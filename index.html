@@ -7,90 +7,85 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: black;
       color: white;
     }
 
-    /* Banner */
     .banner {
       width: 100%;
       height: 20vh;
-      background: url('BannerLL.png') no-repeat center center;
-      background-size: cover;
+      object-fit: cover;
     }
 
-    .main-content {
-      padding: 30px 20px;
+    .content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 40px;
     }
 
-    .left-text {
-      text-align: left;
-      max-width: 800px;
-      margin: 0 auto 40px auto;
+    .text-section {
+      max-width: 35%;
     }
 
-    .left-text h1 {
-      font-size: 32px;
-      color: #6dd1ff;
-      margin-bottom: 16px;
+    .text-section h1 {
+      color: #5ddcff;
+      margin-bottom: 20px;
     }
 
-    .left-text p {
-      font-size: 18px;
-      margin: 6px 0;
+    .text-section p {
+      margin: 10px 0;
+      font-size: 16px;
     }
 
-    .buttons {
+    .center-buttons {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 15px;
+      margin-top: 20px;
     }
 
-    .btn {
-      padding: 12px 24px;
-      font-size: 16px;
+    .frosted-button {
+      background-color: #aee7ff;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      background-color: #6dd1ff;
-      color: black;
-      font-weight: bold;
-      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      box-shadow: 0 0 10px #5ddcff;
+      transition: transform 0.2s ease;
     }
 
-    .btn:hover {
+    .frosted-button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px #6dd1ff;
+      background: linear-gradient(145deg, #d6f1ff, #aee7ff);
     }
 
-    .btn.freeze {
-      background: #a4e9ff;
-      box-shadow: inset 0 0 10px #ffffff44, 0 0 10px #a4e9ff;
+    .video-container {
+      max-width: 30%;
     }
 
-    .copy-message {
-      font-size: 14px;
-      color: #00ffcc;
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .left-text {
-        text-align: center;
-      }
+    .video-container video {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #5ddcff;
     }
   </style>
 </head>
 <body>
 
-  <!-- BANNER -->
-  <div class="banner"></div>
+  <!-- Banner superior -->
+  <img src="BannerLL.png" alt="Banner" class="banner" />
 
-  <!-- TEXTO -->
-  <div class="main-content">
-    <div class="left-text">
+  <!-- Contenido principal -->
+  <div class="content">
+    <!-- Sección de texto a la izquierda -->
+    <div class="text-section">
       <h1>$LLOFI / SUI Pool on CETUS</h1>
       <p>Made with love by the community 💙</p>
       <p>🛡️ Open liquidity</p>
@@ -98,26 +93,28 @@
       <p>We're here to stay 💙</p>
     </div>
 
-    <!-- BOTONES CENTRADOS -->
-    <div class="buttons">
-      <a href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" class="btn freeze" target="_blank">Twitter (X)</a>
-      <a href="https://t.me/LittleLofiOfficial" class="btn freeze" target="_blank">Telegram</a>
-      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" class="btn freeze" target="_blank">Buy on Cetus</a>
-      <button class="btn freeze" onclick="copyContract()">Copy Contract</button>
-      <div class="copy-message" id="copyMsg">✅ Copied!</div>
+    <!-- Sección central con botones -->
+    <div class="center-buttons">
+      <a href="https://x.com/LittleLofiSui" class="frosted-button" target="_blank">Twitter (X)</a>
+      <a href="https://t.me/LittleLofiOfficial" class="frosted-button" target="_blank">Telegram</a>
+      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" class="frosted-button" target="_blank">Buy on Cetus</a>
+      <button class="frosted-button" onclick="copyContract()">Copy Contract</button>
+    </div>
+
+    <!-- Video a la derecha -->
+    <div class="video-container">
+      <video autoplay loop muted playsinline>
+        <source src="LLofiTG.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 
-  <!-- SCRIPT PARA COPIAR -->
   <script>
     function copyContract() {
-      const contract = '0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI';
+      const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
       navigator.clipboard.writeText(contract).then(() => {
-        const msg = document.getElementById('copyMsg');
-        msg.style.display = 'block';
-        setTimeout(() => {
-          msg.style.display = 'none';
-        }, 2000);
+        alert("Contract copied to clipboard!");
       });
     }
   </script>
