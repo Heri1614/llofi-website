@@ -7,117 +7,149 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
       background-color: black;
       color: white;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
     }
 
+    /* Banner congelado */
     .banner {
       width: 100%;
       height: 20vh;
-      object-fit: cover;
+      background: url('BannerLL.png') no-repeat center center;
+      background-size: cover;
     }
 
-    .content {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 40px;
+    /* Título congelado */
+    .frozen-title {
+      font-size: 48px;
+      text-align: center;
+      color: #aee7ff;
+      margin-top: 10px;
+      text-shadow: 0 0 10px #ffffff, 0 0 20px #5ddcff;
+      font-weight: bold;
+      transform: skew(-2deg);
+      font-family: 'Arial Black', sans-serif;
     }
 
-    .text-section {
-      max-width: 35%;
-    }
-
-    .text-section h1 {
-      color: #5ddcff;
-      margin-bottom: 20px;
-    }
-
-    .text-section p {
-      margin: 10px 0;
-      font-size: 16px;
-    }
-
-    .center-buttons {
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .text-left {
+      text-align: left;
+      max-width: 600px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
       margin-top: 20px;
     }
 
     .frosted-button {
-      background-color: #aee7ff;
-      color: black;
+      background: linear-gradient(to bottom, #d8f7ff, #aee7ff);
+      color: #003344;
       font-weight: bold;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
+      padding: 12px 24px;
+      border: 2px solid #ffffffaa;
+      border-radius: 10px;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 0 10px #5ddcff;
-      transition: transform 0.2s ease;
+      box-shadow: 0 0 15px #e0ffff, inset 0 5px 10px #ffffff66;
+      transition: transform 0.2s ease, background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .frosted-button::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: url('https://www.transparenttextures.com/patterns/frost.png');
+      opacity: 0.3;
+      pointer-events: none;
     }
 
     .frosted-button:hover {
       transform: scale(1.05);
-      background: linear-gradient(145deg, #d6f1ff, #aee7ff);
+      background: linear-gradient(to bottom, #ffffff, #c1f3ff);
     }
 
-    .video-container {
-      max-width: 30%;
+    /* Copos de nieve */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #ffffffaa;
+      font-size: 1.2em;
+      animation: fall linear infinite;
+      z-index: 9999;
+      user-select: none;
+      pointer-events: none;
     }
 
-    .video-container video {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #5ddcff;
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
     }
   </style>
 </head>
 <body>
+  <div class="banner"></div>
+  <div class="frozen-title">LittleLofi</div>
 
-  <!-- Banner superior -->
-  <img src="BannerLL.png" alt="Banner" class="banner" />
-
-  <!-- Contenido principal -->
-  <div class="content">
-    <!-- Sección de texto a la izquierda -->
-    <div class="text-section">
-      <h1>$LLOFI / SUI Pool on CETUS</h1>
+  <div class="container">
+    <div class="text-left">
+      <h2 style="color: #5ddcff;">$LLOFI / SUI Pool on CETUS</h2>
       <p>Made with love by the community 💙</p>
       <p>🛡️ Open liquidity</p>
       <p>🚫 No presale or insiders</p>
       <p>We're here to stay 💙</p>
     </div>
 
-    <!-- Sección central con botones -->
-    <div class="center-buttons">
-      <a href="https://x.com/LittleLofiSui" class="frosted-button" target="_blank">Twitter (X)</a>
-      <a href="https://t.me/LittleLofiOfficial" class="frosted-button" target="_blank">Telegram</a>
-      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" class="frosted-button" target="_blank">Buy on Cetus</a>
+    <div class="button-group">
+      <a class="frosted-button" href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" target="_blank">Twitter (X)</a>
+      <a class="frosted-button" href="https://t.me/LittleLofiOfficial" target="_blank">Telegram</a>
+      <a class="frosted-button" href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">Buy on Cetus</a>
       <button class="frosted-button" onclick="copyContract()">Copy Contract</button>
-    </div>
-
-    <!-- Video a la derecha -->
-    <div class="video-container">
-      <video autoplay loop muted playsinline>
-        <source src="LLofiTG.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
     </div>
   </div>
 
+  <!-- JavaScript para copiar contrato -->
   <script>
     function copyContract() {
-      const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
+      const contract = '0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI';
       navigator.clipboard.writeText(contract).then(() => {
-        alert("Contract copied to clipboard!");
+        alert('Contract copied to clipboard!');
       });
     }
-  </script>
 
+    // Copos de nieve aleatorios
+    const snowContainer = document.createDocumentFragment();
+    for (let i = 0; i < 50; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.style.left = `${Math.random() * 100}vw`;
+      snowflake.style.animationDuration = `${5 + Math.random() * 5}s`;
+      snowflake.style.fontSize = `${10 + Math.random() * 14}px`;
+      snowflake.innerText = '❄️';
+      document.body.appendChild(snowflake);
+    }
+  </script>
 </body>
 </html>
