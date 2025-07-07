@@ -37,7 +37,12 @@
       transform: scale(1.05);
     }
 
-    /* Snowflake-like overlay */
+    .llofi-button img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+    }
+
     .llofi-button::after {
       content: '';
       position: absolute;
@@ -51,12 +56,6 @@
       pointer-events: none;
       z-index: 2;
     }
-
-    .llofi-button img {
-      width: 100%;
-      display: block;
-      border-radius: 12px;
-    }
   </style>
 </head>
 <body>
@@ -65,22 +64,22 @@
 
     <!-- X Button -->
     <a href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" target="_blank" class="llofi-button">
-      <img src="./assets/XLLofi.png" alt="X Button">
+      <img src="https://llofi-website.vercel.app/XLLofi.png" alt="X Button">
     </a>
 
     <!-- Telegram Button -->
     <a href="https://t.me/LittleLofiOfficial" target="_blank" class="llofi-button">
-      <img src="./assets/TGLLofi.png" alt="Telegram Button">
+      <img src="https://llofi-website.vercel.app/TGLLofi.png" alt="Telegram Button">
     </a>
 
     <!-- Cetus Button -->
     <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank" class="llofi-button">
-      <img src="./assets/CetusLLofi.png" alt="Cetus Button">
+      <img src="https://llofi-website.vercel.app/CetusLLofi.png" alt="Cetus Button">
     </a>
 
     <!-- Copy Contract Button -->
     <div class="llofi-button" onclick="copyContract()">
-      <img src="./assets/CLLofi.png" alt="Copy Contract Button">
+      <img src="https://llofi-website.vercel.app/CLLofi.png" alt="Copy Contract Button">
     </div>
 
   </div>
