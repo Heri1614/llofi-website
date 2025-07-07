@@ -13,7 +13,7 @@
       overflow-x: hidden;
     }
 
-    /* Banner congelado */
+    /* Banner superior */
     .banner {
       width: 100%;
       height: 20vh;
@@ -21,7 +21,7 @@
       background-size: cover;
     }
 
-    /* Título congelado con animación */
+    /* Título congelado */
     .frozen-title {
       font-size: 48px;
       text-align: center;
@@ -42,18 +42,17 @@
       100% { transform: skew(-2deg) translateX(1px); }
     }
 
-    .container {
+    .main-content {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: flex-start;
+      flex-wrap: wrap;
       padding: 20px;
-      position: relative;
-      z-index: 1;
     }
 
-    .text-left {
-      text-align: left;
-      max-width: 600px;
+    .info {
+      max-width: 500px;
     }
 
     .button-group {
@@ -96,6 +95,19 @@
       background: linear-gradient(to bottom, #ffffff, #c1f3ff);
     }
 
+    /* Video responsive */
+    .video-container {
+      max-width: 480px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .video-container video {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #5ddcffaa;
+    }
+
     /* Copos de nieve */
     .snowflake {
       position: fixed;
@@ -109,56 +121,25 @@
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(-10px) rotate(0deg);
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-      }
+      0% { transform: translateY(-10px) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
     }
   </style>
 </head>
 <body>
   <div class="banner"></div>
+
   <div class="frozen-title">LittleLofi</div>
 
-  <div class="container">
-    <div class="text-left">
+  <div class="main-content">
+    <div class="info">
       <h2 style="color: #5ddcff;">$LLOFI / SUI Pool on CETUS</h2>
       <p>Made with love by the community 💙</p>
       <p>🛡️ Open liquidity</p>
       <p>🚫 No presale or insiders</p>
       <p>We're here to stay 💙</p>
-    </div>
 
-    <div class="button-group">
-      <a class="frosted-button" href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" target="_blank">Twitter (X)</a>
-      <a class="frosted-button" href="https://t.me/LittleLofiOfficial" target="_blank">Telegram</a>
-      <a class="frosted-button" href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">Buy on Cetus</a>
-      <button class="frosted-button" onclick="copyContract()">Copy Contract</button>
-    </div>
-  </div>
-
-  <!-- JavaScript para copiar contrato -->
-  <script>
-    function copyContract() {
-      const contract = '0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI';
-      navigator.clipboard.writeText(contract).then(() => {
-        alert('Contract copied to clipboard!');
-      });
-    }
-
-    // Copos de nieve aleatorios
-    const snowContainer = document.createDocumentFragment();
-    for (let i = 0; i < 50; i++) {
-      const snowflake = document.createElement("div");
-      snowflake.className = "snowflake";
-      snowflake.style.left = `${Math.random() * 100}vw`;
-      snowflake.style.animationDuration = `${5 + Math.random() * 5}s`;
-      snowflake.style.fontSize = `${10 + Math.random() * 14}px`;
-      snowflake.innerText = '❄️';
-      document.body.appendChild(snowflake);
-    }
-  </script>
-</body>
-</html>
+      <div class="button-group">
+        <a class="frosted-button" href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" target="_blank">Twitter (X)</a>
+        <a class="frosted-button" href="https://t.me/LittleLofiOfficial" target="_blank">Telegram</a>
+        <a class="frosted-button" href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">Buy on Cetus</a>
