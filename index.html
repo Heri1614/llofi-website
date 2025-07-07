@@ -41,14 +41,23 @@
       background-position: center;
     }
 
+    /* Texto congelado */
     h1 {
-      color: #b2f0ff;
       font-size: 3em;
       text-align: center;
-      text-shadow: 0 0 15px #69eaff;
-      margin: 20px 0;
       font-weight: bold;
       letter-spacing: 2px;
+      color: #c4f3ff;
+      text-shadow: 0 0 10px #69eaff, 0 0 20px #69eaff;
+      animation: shake 2s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 0px) rotate(0deg); }
+      25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+      50% { transform: translate(1px, -1px) rotate(0.5deg); }
+      75% { transform: translate(-1px, 1px) rotate(0deg); }
+      100% { transform: translate(0px, -1px) rotate(-0.5deg); }
     }
 
     .container {
@@ -58,6 +67,18 @@
       align-items: center;
       padding: 20px;
       flex-wrap: wrap;
+    }
+
+    .left-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .left-image img {
+      max-width: 300px;
+      height: auto;
     }
 
     .buttons {
@@ -101,17 +122,11 @@
       box-shadow: 0 0 20px #69eaff;
     }
 
-    /* Snowflake generator */
-    @keyframes snow {
-      0% { top: -10px; }
-      100% { top: 100%; }
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Copos de nieve (JS al final genera múltiples) -->
+  <!-- Copos de nieve -->
   <div id="snow"></div>
 
   <!-- Banner superior -->
@@ -120,8 +135,14 @@
   <!-- Título congelado -->
   <h1>LittleLofi</h1>
 
-  <!-- Contenido principal -->
+  <!-- Contenido -->
   <div class="container">
+    <!-- Imagen nueva a la izquierda -->
+    <div class="left-image">
+      <img src="llofi-banner.png" alt="LittleLofi Banner" />
+    </div>
+
+    <!-- Botones al centro -->
     <div class="buttons">
       <button onclick="window.open('https://x.com/LittleLofiSui', '_blank')">Twitter</button>
       <button onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
@@ -134,7 +155,7 @@
     <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
-  <!-- Script de copiar contrato -->
+  <!-- Script copiar contrato y nieve -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
@@ -146,7 +167,7 @@
       });
     }
 
-    // Generador de copos de nieve
+    // Copos de nieve
     const snowContainer = document.getElementById("snow");
     for (let i = 0; i < 100; i++) {
       const snowflake = document.createElement("div");
