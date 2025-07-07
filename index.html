@@ -21,7 +21,7 @@
       background-size: cover;
     }
 
-    /* Título congelado */
+    /* Título congelado con animación */
     .frozen-title {
       font-size: 48px;
       text-align: center;
@@ -31,6 +31,15 @@
       font-weight: bold;
       transform: skew(-2deg);
       font-family: 'Arial Black', sans-serif;
+      animation: shiver 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes shiver {
+      0% { transform: skew(-2deg) translateX(0px); }
+      25% { transform: skew(-2deg) translateX(-1px); }
+      50% { transform: skew(-2deg) translateX(1px); }
+      75% { transform: skew(-2deg) translateX(-1px); }
+      100% { transform: skew(-2deg) translateX(1px); }
     }
 
     .container {
