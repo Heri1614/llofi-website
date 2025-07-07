@@ -92,7 +92,6 @@
     }
 
     .buttons button {
-      position: relative;
       background: linear-gradient(to bottom, #c8f1ff, #7ed6ff);
       color: black;
       border: none;
@@ -100,60 +99,26 @@
       font-size: 1.2em;
       border-radius: 10px;
       cursor: pointer;
-      overflow: hidden;
-      box-shadow: 0 0 12px #69eaff;
+      box-shadow: 0 0 10px #69eaff;
       transition: all 0.3s ease;
-      z-index: 1;
+      position: relative;
+      overflow: hidden;
     }
 
-    .buttons button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 200%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 80%);
-      pointer-events: none;
-      animation: freezeFlow 6s linear infinite;
-      z-index: 0;
+    .buttons button:hover {
+      box-shadow: 0 0 25px #69eaff;
+      background: #a1e8ff;
     }
 
-    .buttons button:hover::before {
-      animation: crackle 1.5s forwards;
+    .buttons img {
+      width: 160px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
-    .buttons button::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes freezeFlow {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(50%); }
-    }
-
-    @keyframes crackle {
-      0% {
-        filter: brightness(1) saturate(1);
-        transform: scale(1);
-      }
-      50% {
-        filter: brightness(1.5) saturate(2);
-        transform: scale(1.02);
-      }
-      100% {
-        filter: brightness(1) saturate(1);
-        transform: scale(1);
-      }
+    .buttons img:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 10px #69eaff);
     }
 
     #copyMsg {
@@ -209,7 +174,12 @@
 
     <!-- Botones en el centro -->
     <div class="buttons">
-      <button onclick="window.open('https://x.com/LittleLofiSui', '_blank')">Twitter</button>
+      <!-- Botón de X personalizado -->
+      <a href="https://x.com/LittleLofiSui" target="_blank">
+        <img src="XLLofi.png" alt="X Link" />
+      </a>
+
+      <!-- Botones normales aún -->
       <button onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
       <button onclick="window.open('https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI', '_blank')">Buy on Cetus</button>
       <button onclick="copyContract()">📋 Copy Contract</button>
@@ -223,7 +193,7 @@
   <!-- Sonido de copiado -->
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
 
-  <!-- Script de copiado y copos de nieve -->
+  <!-- Script copiar contrato y nieve -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
@@ -236,7 +206,7 @@
       });
     }
 
-    // Nieve animada
+    // Copos de nieve animados
     const snowContainer = document.getElementById("snow");
     for (let i = 0; i < 80; i++) {
       const snowflake = document.createElement("div");
