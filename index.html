@@ -2,170 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LittleLofi</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: white;
+      font-family: 'Arial', sans-serif;
+      background-color: black;
       overflow-x: hidden;
     }
 
+    /* Copos de nieve */
     .snowflake {
       position: fixed;
       top: -10px;
-      width: 10px;
-      height: 10px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
+      z-index: 9999;
+      color: white;
+      font-size: 1em;
       animation: fall linear infinite;
     }
 
     @keyframes fall {
-      to {
-        transform: translateY(100vh);
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
       }
-    }
-
-    .container {
-      padding: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      100% {
+        transform: translateY(100vh) translateX(20px);
+        opacity: 0;
+      }
     }
 
     .banner {
       width: 100%;
-      max-height: 300px;
-      object-fit: cover;
+      height: 20vh;
+      background-image: url('BannerLL.png');
+      background-size: cover;
+      background-position: center;
     }
 
-    .ice-text {
-      font-size: 2.5em;
-      color: #b3e0ff;
-      text-shadow: 0 0 5px #00f0ff, 0 0 15px #00cfff;
-      animation: shiver 1.5s infinite;
+    /* Texto congelado */
+    h1 {
+      font-size: 3em;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #c4f3ff;
+      text-shadow: 0 0 10px #69eaff, 0 0 20px #69eaff;
+      animation: shake 2s infinite;
     }
 
-    @keyframes shiver {
-      0% { transform: translate(0); }
-      25% { transform: translate(1px, -1px); }
-      50% { transform: translate(-1px, 1px); }
-      75% { transform: translate(1px, 1px); }
-      100% { transform: translate(0); }
+    @keyframes shake {
+      0% { transform: translate(1px, 0px) rotate(0deg); }
+      25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+      50% { transform: translate(1px, -1px) rotate(0.5deg); }
+      75% { transform: translate(-1px, 1px) rotate(0deg); }
+      100% { transform: translate(0px, -1px) rotate(-0.5deg); }
     }
 
-    .button-container {
+    .container {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .button {
-      background-color: #b3e0ff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1em;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #d0f4ff;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+      padding: 20px;
+      flex-wrap: wrap;
     }
 
     .left-image {
-      max-width: 300px;
-      height: auto;
-      margin-right: 20px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .content-area {
+    .left-image img {
+      max-width: 300px;
+      height: auto;
+    }
+
+    .buttons {
+      flex: 1;
       display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 20px;
+      flex-direction: column;
+      align-items: center;
       gap: 20px;
     }
 
-    .video-right {
+    .buttons button {
+      background: linear-gradient(to bottom, #c8f1ff, #7ed6ff);
+      color: black;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #69eaff;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .buttons button:hover {
+      box-shadow: 0 0 25px #69eaff;
+      background: #a1e8ff;
+    }
+
+    /* Copy feedback */
+    #copyMsg {
+      color: white;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    video {
+      flex: 1;
       max-width: 400px;
-      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #69eaff;
     }
 
-    @media (max-width: 768px) {
-      .content-area {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .left-image, .video-right {
-        margin: 0;
-        width: 90%;
-      }
-    }
   </style>
 </head>
 <body>
-  <img src="llofi-banner.png" class="banner" alt="LittleLofi Banner" />
 
-  <h1 class="ice-text">LittleLofi</h1>
+  <!-- Copos de nieve -->
+  <div id="snow"></div>
 
-  <div class="content-area">
-    <img src="llofi-banner.png.png" alt="LittleLofi holding sign" class="left-image" />
+  <!-- Banner superior -->
+  <div class="banner"></div>
 
-    <div class="button-container">
-      <p>$LLOFI / SUI Pool on CETUS</p>
-      <p>Made with love by the community 💙</p>
-      <p>🛡️ Open liquidity</p>
-      <p>🚫 No presale or insiders</p>
-      <p>We're here to stay 💙</p>
-      <button class="button" onclick="copyContract()">📋 Copy Contract</button>
-      <button class="button" onclick="window.open('https://x.com/LittleLofiSui', '_blank')">Twitter (X)</button>
-      <button class="button" onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
-      <button class="button" onclick="window.open('https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI', '_blank')">Buy on Cetus</button>
+  <!-- Título congelado -->
+  <h1>LittleLofi</h1>
+
+  <!-- Contenido -->
+  <div class="container">
+    <!-- Imagen nueva a la izquierda -->
+    <div class="left-image">
+      <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
 
-    <video class="video-right" autoplay muted loop>
-      <source src="LLofiTG.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <!-- Botones al centro -->
+    <div class="buttons">
+      <button onclick="window.open('https://x.com/LittleLofiSui', '_blank')">Twitter</button>
+      <button onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
+      <button onclick="window.open('https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI', '_blank')">Buy on Cetus</button>
+      <button onclick="copyContract()">Copy Contract</button>
+      <div id="copyMsg"></div>
+    </div>
+
+    <!-- Video a la derecha -->
+    <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
-  <audio id="copySound" src="https://www.myinstants.com/media/sounds/pop-up-off.mp3"></audio>
-
+  <!-- Script copiar contrato y nieve -->
   <script>
-    function createSnowflake() {
-      const snowflake = document.createElement("div");
-      snowflake.classList.add("snowflake");
-      snowflake.style.left = Math.random() * window.innerWidth + "px";
-      snowflake.style.animationDuration = 2 + Math.random() * 3 + "s";
-      document.body.appendChild(snowflake);
-      setTimeout(() => snowflake.remove(), 5000);
-    }
-    setInterval(createSnowflake, 100);
-
     function copyContract() {
-      const contract = '0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI';
+      const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
       navigator.clipboard.writeText(contract).then(() => {
-        const audio = document.getElementById("copySound");
-        audio.play();
-        alert("Contract copied to clipboard!");
+        document.getElementById("copyMsg").innerText = "✅ Contract copied!";
+        setTimeout(() => {
+          document.getElementById("copyMsg").innerText = "";
+        }, 2000);
       });
     }
+
+    // Copos de nieve
+    const snowContainer = document.getElementById("snow");
+    for (let i = 0; i < 100; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.textContent = "❄️";
+      snowflake.style.left = Math.random() * 100 + "vw";
+      snowflake.style.animationDuration = 3 + Math.random() * 5 + "s";
+      snowflake.style.fontSize = 10 + Math.random() * 20 + "px";
+      snowflake.style.opacity = Math.random();
+      snowContainer.appendChild(snowflake);
+    }
   </script>
+
 </body>
 </html>
