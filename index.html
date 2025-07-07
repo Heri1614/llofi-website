@@ -20,17 +20,12 @@
       color: white;
       font-size: 1em;
       animation: fall linear infinite;
+      pointer-events: none;
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) translateX(20px);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) translateX(0); opacity: 1; }
+      100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
     }
 
     .banner {
@@ -41,7 +36,6 @@
       background-position: center;
     }
 
-    /* Texto congelado */
     h1 {
       font-size: 3em;
       text-align: center;
@@ -50,6 +44,7 @@
       color: #c4f3ff;
       text-shadow: 0 0 10px #69eaff, 0 0 20px #69eaff;
       animation: shake 2s infinite;
+      margin: 20px 0;
     }
 
     @keyframes shake {
@@ -74,6 +69,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 10px;
     }
 
     .left-image img {
@@ -87,6 +83,7 @@
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      padding: 10px;
     }
 
     .buttons button {
@@ -108,7 +105,6 @@
       background: #a1e8ff;
     }
 
-    /* Copy feedback */
     #copyMsg {
       color: white;
       margin-top: 10px;
@@ -120,8 +116,34 @@
       max-width: 400px;
       border-radius: 10px;
       box-shadow: 0 0 20px #69eaff;
+      margin: 20px auto;
+      display: block;
     }
 
+    /* Diseño responsive para celulares */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 10px;
+      }
+
+      .left-image img {
+        max-width: 80%;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      video {
+        width: 90%;
+      }
+
+      .buttons button {
+        width: 90%;
+        font-size: 1em;
+      }
+    }
   </style>
 </head>
 <body>
@@ -129,7 +151,7 @@
   <!-- Copos de nieve -->
   <div id="snow"></div>
 
-  <!-- Banner superior -->
+  <!-- Banner -->
   <div class="banner"></div>
 
   <!-- Título congelado -->
@@ -137,12 +159,12 @@
 
   <!-- Contenido -->
   <div class="container">
-    <!-- Imagen nueva a la izquierda -->
+    <!-- Imagen -->
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
 
-    <!-- Botones al centro -->
+    <!-- Botones -->
     <div class="buttons">
       <button onclick="window.open('https://x.com/LittleLofiSui', '_blank')">Twitter</button>
       <button onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
@@ -150,12 +172,12 @@
       <button onclick="copyContract()">Copy Contract</button>
       <div id="copyMsg"></div>
     </div>
-
-    <!-- Video a la derecha -->
-    <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
-  <!-- Script copiar contrato y nieve -->
+  <!-- Video debajo -->
+  <video src="LLofiTG.mp4" autoplay muted loop></video>
+
+  <!-- Scripts -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
@@ -180,6 +202,5 @@
       snowContainer.appendChild(snowflake);
     }
   </script>
-
 </body>
 </html>
