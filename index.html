@@ -13,7 +13,6 @@
       overflow-x: hidden;
     }
 
-    /* Copos de nieve animados */
     .snowflake {
       position: fixed;
       top: -10px;
@@ -34,7 +33,6 @@
       }
     }
 
-    /* Banner superior */
     .banner {
       width: 100%;
       height: 20vh;
@@ -43,7 +41,6 @@
       background-position: center;
     }
 
-    /* Título congelado */
     h1 {
       font-size: 3em;
       text-align: center;
@@ -91,25 +88,6 @@
       gap: 20px;
     }
 
-    .buttons button {
-      background: linear-gradient(to bottom, #c8f1ff, #7ed6ff);
-      color: black;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #69eaff;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .buttons button:hover {
-      box-shadow: 0 0 25px #69eaff;
-      background: #a1e8ff;
-    }
-
     .buttons img {
       width: 160px;
       transition: transform 0.3s ease;
@@ -135,7 +113,6 @@
       box-shadow: 0 0 20px #69eaff;
     }
 
-    /* Responsive para móvil */
     @media screen and (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -156,44 +133,41 @@
 </head>
 <body>
 
-  <!-- Copos de nieve -->
   <div id="snow"></div>
 
-  <!-- Banner superior -->
   <div class="banner"></div>
 
-  <!-- Título congelado -->
   <h1>LittleLofi</h1>
 
-  <!-- Contenido central -->
   <div class="container">
-    <!-- Imagen a la izquierda -->
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
 
-    <!-- Botones en el centro -->
     <div class="buttons">
-      <!-- Botón de X personalizado -->
       <a href="https://x.com/LittleLofiSui" target="_blank">
         <img src="XLLofi.png" alt="X Link" />
       </a>
 
-      <!-- Botones normales aún -->
-      <button onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
-      <button onclick="window.open('https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI', '_blank')">Buy on Cetus</button>
-      <button onclick="copyContract()">📋 Copy Contract</button>
+      <a href="https://t.me/LittleLofiOfficial" target="_blank">
+        <img src="TGLLofi.png" alt="Telegram Button" />
+      </a>
+
+      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
+        <img src="CetusLLofi.png" alt="Buy on Cetus" />
+      </a>
+
+      <a href="#" onclick="copyContract()">
+        <img src="CLLofi.png" alt="Copy Contract" />
+      </a>
       <div id="copyMsg"></div>
     </div>
 
-    <!-- Video a la derecha -->
     <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
-  <!-- Sonido de copiado -->
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
 
-  <!-- Script copiar contrato y nieve -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
@@ -206,7 +180,6 @@
       });
     }
 
-    // Copos de nieve animados
     const snowContainer = document.getElementById("snow");
     for (let i = 0; i < 80; i++) {
       const snowflake = document.createElement("div");
