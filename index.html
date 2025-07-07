@@ -143,3 +143,33 @@
         <a class="frosted-button" href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" target="_blank">Twitter (X)</a>
         <a class="frosted-button" href="https://t.me/LittleLofiOfficial" target="_blank">Telegram</a>
         <a class="frosted-button" href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">Buy on Cetus</a>
+        <button class="frosted-button" onclick="copyContract()">Copy Contract</button>
+      </div>
+    </div>
+
+    <div class="video-container">
+      <video src="LLofiTG.mp4" autoplay muted loop playsinline></video>
+    </div>
+  </div>
+
+  <script>
+    function copyContract() {
+      const contract = '0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI';
+      navigator.clipboard.writeText(contract).then(() => {
+        alert('Contract copied to clipboard!');
+      });
+    }
+
+    // Copos de nieve animados
+    for (let i = 0; i < 50; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.style.left = `${Math.random() * 100}vw`;
+      snowflake.style.animationDuration = `${5 + Math.random() * 5}s`;
+      snowflake.style.fontSize = `${10 + Math.random() * 14}px`;
+      snowflake.innerText = '❄️';
+      document.body.appendChild(snowflake);
+    }
+  </script>
+</body>
+</html>
