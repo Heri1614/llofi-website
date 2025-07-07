@@ -9,8 +9,16 @@
     body {
       margin: 0;
       font-family: 'Iceberg', sans-serif;
-      background-color: black;
+      background-color: #000;
+      background-image: url('https://www.transparenttextures.com/patterns/ice.png');
+      background-size: 400px 400px;
+      animation: moveBackground 60s linear infinite;
       overflow-x: hidden;
+    }
+
+    @keyframes moveBackground {
+      0% { background-position: 0 0; }
+      100% { background-position: 400px 400px; }
     }
 
     .snowflake {
@@ -88,6 +96,25 @@
       gap: 20px;
     }
 
+    .buttons button {
+      background: linear-gradient(to bottom, #c8f1ff, #7ed6ff);
+      color: black;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #69eaff;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .buttons button:hover {
+      box-shadow: 0 0 25px #69eaff;
+      background: #a1e8ff;
+    }
+
     .buttons img {
       width: 160px;
       transition: transform 0.3s ease;
@@ -133,36 +160,40 @@
 </head>
 <body>
 
+  <!-- Copos de nieve -->
   <div id="snow"></div>
 
+  <!-- Banner superior -->
   <div class="banner"></div>
 
+  <!-- Título congelado -->
   <h1>LittleLofi</h1>
 
+  <!-- Contenido central -->
   <div class="container">
+    <!-- Imagen a la izquierda -->
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
 
+    <!-- Botones en el centro -->
     <div class="buttons">
       <a href="https://x.com/LittleLofiSui" target="_blank">
-        <img src="XLLofi.png" alt="X Link" />
+        <img src="XLLofi.png" alt="X Button" />
       </a>
-
       <a href="https://t.me/LittleLofiOfficial" target="_blank">
         <img src="TGLLofi.png" alt="Telegram Button" />
       </a>
-
       <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
-        <img src="CetusLLofi.png" alt="Buy on Cetus" />
+        <img src="CetusLLofi.png" alt="Cetus Button" />
       </a>
-
       <a href="#" onclick="copyContract()">
-        <img src="CLLofi.png" alt="Copy Contract" />
+        <img src="CopyLLofi.png" alt="Copy Contract Button" />
       </a>
       <div id="copyMsg"></div>
     </div>
 
+    <!-- Video a la derecha -->
     <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
@@ -180,6 +211,7 @@
       });
     }
 
+    // Copos de nieve
     const snowContainer = document.getElementById("snow");
     for (let i = 0; i < 80; i++) {
       const snowflake = document.createElement("div");
