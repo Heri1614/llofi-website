@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>$LLOFI – LittleLofi Community</title>
   <style>
     body {
@@ -10,35 +10,38 @@
       font-family: 'Arial', sans-serif;
       background-color: black;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
+    /* Banner */
     .banner {
       width: 100%;
       height: 20vh;
-      background: url('llofi-banner.png') no-repeat center center;
-      background-size: cover;
+      background: url('BannerLL.png') no-repeat center center;
+      background-size: contain;
+      background-color: black;
     }
 
-    .container {
+    .main-content {
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      width: 100%;
+      flex-direction: column;
+      align-items: center;
       padding: 30px 20px;
-      gap: 60px;
-      flex-wrap: wrap;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      max-width: 1100px;
+      justify-content: space-between;
+      gap: 40px;
     }
 
     .left-text {
       flex: 1;
-      max-width: 300px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      text-align: left;
+      gap: 12px;
     }
 
     .left-text h1 {
@@ -58,6 +61,7 @@
       flex-direction: column;
       gap: 15px;
       align-items: center;
+      justify-content: center;
     }
 
     .btn {
@@ -90,7 +94,7 @@
     }
 
     @media (max-width: 768px) {
-      .container {
+      .content {
         flex-direction: column;
         align-items: center;
       }
@@ -105,35 +109,18 @@
 <body>
   <div class="banner"></div>
 
-  <div class="container">
-    <div class="left-text">
-      <h1>$LLOFI / SUI Pool on CETUS</h1>
-      <p>Made with love by the community 💙</p>
-      <p>🛡️ Open liquidity</p>
-      <p>🚫 No presale or insiders</p>
-      <p>We're here to stay 💙</p>
-    </div>
+  <div class="main-content">
+    <div class="content">
+      <div class="left-text">
+        <h1>$LLOFI / SUI Pool on CETUS</h1>
+        <p>Made with love by the community 💙</p>
+        <p>🛡️ Open liquidity</p>
+        <p>🚫 No presale or insiders</p>
+        <p>We're here to stay 💙</p>
+      </div>
 
-    <div class="buttons">
-      <a href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" class="btn freeze" target="_blank">Twitter (X)</a>
-      <a href="https://t.me/LittleLofiOfficial" class="btn freeze" target="_blank">Telegram</a>
-      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" class="btn freeze" target="_blank">Buy on Cetus</a>
-      <button class="btn freeze" onclick="copyContract()">Copy Contract</button>
-      <div class="copy-message" id="copyMsg">✅ Copied!</div>
-    </div>
-  </div>
+      <div class="buttons">
+        <a href="https://x.com/LittleLofiSui?t=MSemdHdJK0d9WAuahmuW1Q&s=09" class="btn freeze" target="_blank">Twitter (X)</a>
+        <a href="https://t.me/LittleLofiOfficial" class="btn freeze" target="_blank">Telegram</a>
+        <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" clas
 
-  <script>
-    function copyContract() {
-      const contract = '0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI';
-      navigator.clipboard.writeText(contract).then(() => {
-        const msg = document.getElementById('copyMsg');
-        msg.style.display = 'block';
-        setTimeout(() => {
-          msg.style.display = 'none';
-        }, 2000);
-      });
-    }
-  </script>
-</body>
-</html>
