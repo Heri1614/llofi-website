@@ -43,6 +43,7 @@
       background-position: center;
     }
 
+    /* Título congelado */
     h1 {
       font-size: 3em;
       text-align: center;
@@ -91,6 +92,7 @@
     }
 
     .buttons button {
+      position: relative;
       background: linear-gradient(to bottom, #c8f1ff, #7ed6ff);
       color: black;
       border: none;
@@ -98,41 +100,62 @@
       font-size: 1.2em;
       border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 0 10px #69eaff;
-      transition: all 0.3s ease;
-      position: relative;
       overflow: hidden;
+      box-shadow: 0 0 12px #69eaff;
+      transition: all 0.3s ease;
+      z-index: 1;
     }
 
     .buttons button::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: -100%;
-      width: 100%;
+      width: 200%;
       height: 100%;
-      background: url('https://i.imgur.com/WFbzzhT.png') repeat;
-      opacity: 0.3;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 80%);
       pointer-events: none;
-      transition: left 0.5s ease;
+      animation: freezeFlow 6s linear infinite;
+      z-index: 0;
     }
 
     .buttons button:hover::before {
+      animation: crackle 1.5s forwards;
+    }
+
+    .buttons button::after {
+      content: "";
+      position: absolute;
+      top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .buttons button:active {
-      animation: crack 0.3s ease;
-      background: #a1e8ff;
+    @keyframes freezeFlow {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
     }
 
-    @keyframes crack {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.98) rotate(1deg); }
-      100% { transform: scale(1); }
+    @keyframes crackle {
+      0% {
+        filter: brightness(1) saturate(1);
+        transform: scale(1);
+      }
+      50% {
+        filter: brightness(1.5) saturate(2);
+        transform: scale(1.02);
+      }
+      100% {
+        filter: brightness(1) saturate(1);
+        transform: scale(1);
+      }
     }
 
-    /* Mensaje de copiado */
     #copyMsg {
       color: white;
       margin-top: 10px;
@@ -179,10 +202,12 @@
 
   <!-- Contenido central -->
   <div class="container">
+    <!-- Imagen a la izquierda -->
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
 
+    <!-- Botones en el centro -->
     <div class="buttons">
       <button onclick="window.open('https://x.com/LittleLofiSui', '_blank')">Twitter</button>
       <button onclick="window.open('https://t.me/LittleLofiOfficial', '_blank')">Telegram</button>
@@ -191,13 +216,14 @@
       <div id="copyMsg"></div>
     </div>
 
+    <!-- Video a la derecha -->
     <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
   <!-- Sonido de copiado -->
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
 
-  <!-- Script copiar contrato y nieve -->
+  <!-- Script de copiado y copos de nieve -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
@@ -210,7 +236,7 @@
       });
     }
 
-    // Copos de nieve
+    // Nieve animada
     const snowContainer = document.getElementById("snow");
     for (let i = 0; i < 80; i++) {
       const snowflake = document.createElement("div");
