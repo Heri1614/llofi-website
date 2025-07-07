@@ -16,21 +16,14 @@
       overflow-x: hidden;
     }
 
-    .snow {
+    canvas#snowCanvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      background: url('https://i.imgur.com/o2QwZLp.png') repeat top center;
-      animation: snowfall 20s linear infinite;
       z-index: 999;
-    }
-
-    @keyframes snowfall {
-      0% { background-position: 0px 0px; }
-      100% { background-position: 0px 1000px; }
+      pointer-events: none;
     }
 
     .container {
@@ -87,41 +80,24 @@
       font-size: 16px;
       box-shadow: 0 0 10px #00e5ff;
       position: relative;
-      overflow: hidden;
       transition: all 0.3s ease;
     }
 
-    .btn::before {
+    .btn:hover {
+      background: #e1f5fe;
+      box-shadow: 0 0 20px #00e5ff, inset 0 0 10px #00e5ff;
+    }
+
+    .btn::after {
       content: "";
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 200%;
-      height: 100%;
-      background: rgba(173, 216, 230, 0.3);
-      background-image: url('https://i.imgur.com/3nT9bjT.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      transition: all 0.5s ease;
-      z-index: 1;
-    }
-
-    .btn:hover::before {
       left: 0;
-    }
-
-    .btn:active::before {
-      animation: crack 0.4s ease-out forwards;
-    }
-
-    @keyframes crack {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.5) rotate(20deg); }
-    }
-
-    .btn span {
-      position: relative;
-      z-index: 2;
+      right: 0;
+      height: 5px;
+      background: white;
+      opacity: 0.3;
+      border-radius: 10px 10px 0 0;
     }
 
     .video-container {
@@ -145,35 +121,10 @@
       cursor: pointer;
       box-shadow: 0 0 10px #00e5ff;
       position: relative;
-      overflow: hidden;
     }
 
-    .copy-btn::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 200%;
-      height: 100%;
-      background: rgba(173, 216, 230, 0.3);
-      background-image: url('https://i.imgur.com/3nT9bjT.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      transition: all 0.5s ease;
-      z-index: 1;
-    }
-
-    .copy-btn:hover::before {
-      left: 0;
-    }
-
-    .copy-btn:active::before {
-      animation: crack 0.4s ease-out forwards;
-    }
-
-    .copy-btn span {
-      position: relative;
-      z-index: 2;
+    .copy-btn:hover {
+      background: #e0f7fa;
     }
 
     @media only screen and (max-width: 768px) {
@@ -191,7 +142,7 @@
 </head>
 
 <body>
-  <div class="snow"></div>
+  <canvas id="snowCanvas"></canvas>
 
   <img src="BannerLL.png" class="banner" alt="Banner">
   <div class="title">LittleLofi</div>
@@ -208,13 +159,13 @@
   </div>
 
   <div class="buttons">
-    <a href="https://x.com/LittleLofiSui" target="_blank"><button class="btn"><span>Twitter (X)</span></button></a>
-    <a href="https://t.me/LittleLofiOfficial" target="_blank"><button class="btn"><span>Telegram</span></button></a>
-    <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank"><button class="btn"><span>Buy on Cetus</span></button></a>
+    <a href="https://x.com/LittleLofiSui" target="_blank"><button class="btn">Twitter (X)</button></a>
+    <a href="https://t.me/LittleLofiOfficial" target="_blank"><button class="btn">Telegram</button></a>
+    <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank"><button class="btn">Buy on Cetus</button></a>
   </div>
 
   <div class="copy-container">
-    <button class="copy-btn" onclick="copyContract()"><span>📋 Copy Token Contract</span></button>
+    <button class="copy-btn" onclick="copyContract()">📋 Copy Token Contract</button>
   </div>
 
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
@@ -227,6 +178,65 @@
         document.getElementById("copySound").play();
       });
     }
+
+    // Snowfall effect
+    const canvas = document.getElementById('snowCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let snowflakes = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    function createSnowflakes() {
+      const flakes = [];
+      for (let i = 0; i < 150; i++) {
+        flakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 4 + 1,
+          d: Math.random() + 1
+        });
+      }
+      return flakes;
+    }
+
+    function drawSnowflakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      for (let i = 0; i < snowflakes.length; i++) {
+        const f = snowflakes[i];
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      moveSnowflakes();
+    }
+
+    function moveSnowflakes() {
+      for (let i = 0; i < snowflakes.length; i++) {
+        const f = snowflakes[i];
+        f.y += Math.pow(f.d, 2);
+        f.x += Math.sin(f.y * 0.01);
+
+        if (f.y > height) {
+          snowflakes[i] = { x: Math.random() * width, y: 0, r: f.r, d: f.d };
+        }
+      }
+    }
+
+    function animateSnow() {
+      drawSnowflakes();
+      requestAnimationFrame(animateSnow);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+    snowflakes = createSnowflakes();
+    animateSnow();
   </script>
 </body>
 
