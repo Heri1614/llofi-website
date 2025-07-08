@@ -14,6 +14,25 @@
       color: white;
     }
 
+    .snowflake {
+      color: white;
+      font-size: 1.5em;
+      position: fixed;
+      top: -10px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
     .banner {
       width: 100%;
       height: 20vh;
@@ -34,15 +53,11 @@
       100% { transform: translate(0px, -1px) rotate(-0.5deg); }
     }
 
-    .hero-logo {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .hero-logo img {
+    .logo-img {
+      display: block;
+      margin: 0 auto;
+      width: 320px;
       max-width: 90%;
-      width: 500px;
     }
 
     .container {
@@ -105,22 +120,16 @@
       border: 1px solid #69eaff;
       border-radius: 10px;
       padding: 20px;
-      margin-top: 10px;
-      max-width: 300px;
+      margin: 20px auto;
+      max-width: 90%;
       box-shadow: 0 0 15px #69eaff;
       backdrop-filter: blur(10px);
-      animation: fadeSlide 0.5s ease forwards;
+      animation: fadeIn 0.4s ease-in-out;
     }
 
-    @keyframes fadeSlide {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media screen and (max-width: 768px) {
@@ -143,11 +152,35 @@
 </head>
 <body>
 
+  <!-- Copos de nieve generados dinámicamente -->
+  <script>
+    for (let i = 0; i < 40; i++) {
+      const snow = document.createElement("div");
+      snow.className = "snowflake";
+      snow.style.left = Math.random() * 100 + "vw";
+      snow.style.animationDuration = (5 + Math.random() * 5) + "s";
+      snow.textContent = "❄";
+      document.body.appendChild(snow);
+    }
+  </script>
+
   <div class="banner"></div>
 
-  <!-- Logo con shake -->
-  <div class="hero-logo shake">
-    <img src="EncaLL.png" alt="LittleLofi Logo" />
+  <!-- Imagen animada con efecto shake -->
+  <img src="EncaLL.png" alt="LittleLofi Logo" class="logo-img shake">
+
+  <!-- About button y texto desplegable -->
+  <div class="buttons">
+    <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />
+    <div id="about-text">
+      <h2>🧊 What is LittleLofi?</h2>
+      <p>LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
+        He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
+        LittleLofi is the symbol of rebirth on Sui: fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
+        No hype. No VCs. Just vibes and vision.<br><br>
+        <strong>Join the movement.</strong><br>
+        Let’s show the world that from the ice, a new king can rise.</p>
+    </div>
   </div>
 
   <div class="container">
@@ -156,21 +189,6 @@
     </div>
 
     <div class="buttons">
-      <!-- BOTÓN ABOUT PRIMERO -->
-      <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />
-
-      <!-- TEXTO ABOUT DEBAJO DEL BOTÓN -->
-      <div id="about-text">
-        <h2>🧊 What is LittleLofi?</h2>
-        <p>LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
-        He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
-        LittleLofi is the symbol of rebirth on Sui: fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
-        No hype. No VCs. Just vibes and vision.<br><br>
-        <strong>Join the movement.</strong><br>
-        Let’s show the world that from the ice, a new king can rise.</p>
-      </div>
-
-      <!-- OTROS BOTONES -->
       <a href="https://x.com/LittleLofiSui" target="_blank">
         <img src="XLLofi.png" alt="X Link" />
       </a>
@@ -206,12 +224,9 @@
 
     function toggleAbout() {
       const aboutBox = document.getElementById("about-text");
-      if (aboutBox.style.display === "block") {
-        aboutBox.style.display = "none";
-      } else {
-        aboutBox.style.display = "block";
-        aboutBox.style.animation = "fadeSlide 0.5s ease forwards";
-      }
+      aboutBox.style.display = (aboutBox.style.display === "none" || !aboutBox.style.display)
+        ? "block"
+        : "none";
     }
   </script>
 </body>
