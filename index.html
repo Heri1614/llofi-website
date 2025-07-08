@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -12,148 +11,144 @@
       background-color: black;
       overflow-x: hidden;
       color: white;
-    }
+    }.snowflake {
+  color: white;
+  font-size: 1.5em;
+  position: fixed;
+  top: -10px;
+  animation: fall linear infinite;
+  pointer-events: none;
+  opacity: 0.7;
+}
 
-    .snowflake {
-      color: white;
-      font-size: 1.5em;
-      position: fixed;
-      top: -10px;
-      animation: fall linear infinite;
-      pointer-events: none;
-      opacity: 0.7;
-    }
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
 
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-      }
-    }
+.banner {
+  width: 100%;
+  height: 20vh;
+  background-image: url('BannerLL.png');
+  background-size: cover;
+  background-position: center;
+}
 
-    .banner {
-      width: 100%;
-      height: 20vh;
-      background-image: url('BannerLL.png');
-      background-size: cover;
-      background-position: center;
-    }
+.shake {
+  animation: shake 2s infinite;
+}
 
-    .shake {
-      animation: shake 2s infinite;
-    }
+@keyframes shake {
+  0% { transform: translate(1px, 0px) rotate(0deg); }
+  25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+  50% { transform: translate(1px, -1px) rotate(0.5deg); }
+  75% { transform: translate(-1px, 1px) rotate(0deg); }
+  100% { transform: translate(0px, -1px) rotate(-0.5deg); }
+}
 
-    @keyframes shake {
-      0% { transform: translate(1px, 0px) rotate(0deg); }
-      25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
-      50% { transform: translate(1px, -1px) rotate(0.5deg); }
-      75% { transform: translate(-1px, 1px) rotate(0deg); }
-      100% { transform: translate(0px, -1px) rotate(-0.5deg); }
-    }
+.logo-img {
+  display: block;
+  margin: 0 auto;
+  width: 320px;
+  max-width: 90%;
+}
 
-    .logo-img {
-      display: block;
-      margin: 0 auto;
-      width: 320px;
-      max-width: 90%;
-    }
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap;
+}
 
-    .container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      flex-wrap: wrap;
-    }
+.left-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .left-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.left-image img {
+  max-width: 300px;
+  height: auto;
+}
 
-    .left-image img {
-      max-width: 300px;
-      height: auto;
-    }
+.buttons {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 
-    .buttons {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
+.buttons img {
+  width: 160px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
 
-    .buttons img {
-      width: 160px;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
+.buttons img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 10px #69eaff);
+}
 
-    .buttons img:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 10px #69eaff);
-    }
+#copyMsg {
+  color: white;
+  margin-top: 10px;
+  font-size: 0.9em;
+  transition: opacity 0.3s;
+}
 
-    #copyMsg {
-      color: white;
-      margin-top: 10px;
-      font-size: 0.9em;
-      transition: opacity 0.3s;
-    }
+video {
+  flex: 1;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #69eaff;
+}
 
-    video {
-      flex: 1;
-      max-width: 400px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #69eaff;
-    }
+#about-text {
+  display: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #69eaff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 90%;
+  box-shadow: 0 0 15px #69eaff;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.4s ease-in-out;
+}
 
-    #about-text {
-      display: none;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #69eaff;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 90%;
-      box-shadow: 0 0 15px #69eaff;
-      backdrop-filter: blur(10px);
-      animation: fadeIn 0.4s ease-in-out;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-    @media screen and (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
+  video {
+    margin-top: 20px;
+    width: 90%;
+  }
 
-      video {
-        margin-top: 20px;
-        width: 90%;
-      }
+  .left-image {
+    margin-bottom: 20px;
+  }
+}
 
-      .left-image {
-        margin-bottom: 20px;
-      }
-    }
   </style>
 </head>
-<body>
-
-  <!-- Copos de nieve generados dinámicamente -->
-  <script>
+<body>  <!-- Copos de nieve generados dinámicamente -->  <script>
     for (let i = 0; i < 40; i++) {
       const snow = document.createElement("div");
       snow.className = "snowflake";
@@ -162,15 +157,7 @@
       snow.textContent = "❄";
       document.body.appendChild(snow);
     }
-  </script>
-
-  <div class="banner"></div>
-
-  <!-- Imagen animada con efecto shake -->
-  <img src="EncaLL.png" alt="LittleLofi Logo" class="logo-img shake">
-
-  <!-- About button y texto desplegable -->
-  <div class="buttons">
+  </script>  <div class="banner"></div>  <!-- Imagen animada con efecto shake -->  <img src="EncaLL.png" alt="LittleLofi Logo" class="logo-img shake">  <!-- About button y texto desplegable -->  <div class="buttons">
     <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />
     <div id="about-text">
       <h2>🧊 What is LittleLofi?</h2>
@@ -181,34 +168,32 @@
         <strong>Join the movement.</strong><br>
         Let’s show the world that from the ice, a new king can rise.</p>
     </div>
-  </div>
-
-  <div class="container">
+    <a href="game.html">
+      <img src="PlayLL.png" alt="Play Game" />
+    </a>
+  </div>  <div class="container">
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
-    </div>
+    </div><div class="buttons">
+  <a href="https://x.com/LittleLofiSui" target="_blank">
+    <img src="XLLofi.png" alt="X Link" />
+  </a>
 
-    <div class="buttons">
-      <a href="https://x.com/LittleLofiSui" target="_blank">
-        <img src="XLLofi.png" alt="X Link" />
-      </a>
+  <a href="https://t.me/LittleLofiOfficial" target="_blank">
+    <img src="TGLLofi.png" alt="Telegram" />
+  </a>
 
-      <a href="https://t.me/LittleLofiOfficial" target="_blank">
-        <img src="TGLLofi.png" alt="Telegram" />
-      </a>
+  <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
+    <img src="CetusLLofi.png" alt="Buy on Cetus" />
+  </a>
 
-      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
-        <img src="CetusLLofi.png" alt="Buy on Cetus" />
-      </a>
+  <img src="CLLofi.png" alt="Copy Contract" onclick="copyContract()" />
+  <div id="copyMsg"></div>
+</div>
 
-      <img src="CLLofi.png" alt="Copy Contract" onclick="copyContract()" />
-      <div id="copyMsg"></div>
-    </div>
+<video src="LLofiTG.mp4" autoplay muted loop></video>
 
-    <video src="LLofiTG.mp4" autoplay muted loop></video>
-  </div>
-
-  <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
+  </div><audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
 
   <script>
     function copyContract() {
@@ -228,6 +213,5 @@
         ? "block"
         : "none";
     }
-  </script>
-</body>
+  </script></body>
 </html>
