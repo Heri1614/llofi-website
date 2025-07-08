@@ -25,8 +25,12 @@
     }  
   
     @keyframes fall {  
-      0% { transform: translateY(0) rotate(0deg); }  
-      100% { transform: translateY(100vh) rotate(360deg); }  
+      0% {  
+        transform: translateY(0) rotate(0deg);  
+      }  
+      100% {  
+        transform: translateY(100vh) rotate(360deg);  
+      }  
     }  
   
     .banner {  
@@ -37,7 +41,9 @@
       background-position: center;  
     }  
   
-    .shake { animation: shake 2s infinite; }  
+    .shake {  
+      animation: shake 2s infinite;  
+    }  
   
     @keyframes shake {  
       0% { transform: translate(1px, 0px) rotate(0deg); }  
@@ -146,6 +152,7 @@
 </head>  
 <body>  
   
+  <!-- Copos de nieve generados dinámicamente -->  
   <script>  
     for (let i = 0; i < 40; i++) {  
       const snow = document.createElement("div");  
@@ -158,10 +165,19 @@
   </script>  
   
   <div class="banner"></div>  
+  
+  <!-- Imagen animada con efecto shake -->  
   <img src="EncaLL.png" alt="LittleLofi Logo" class="logo-img shake">  
   
+  <!-- About button, Play Game y texto desplegable -->  
   <div class="buttons">  
     <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />  
+    
+    <!-- Botón Play Game debajo de About -->
+    <a href="game/index.html" target="_blank">
+      <img src="PlayLL.png" alt="Play Game" />
+    </a>
+
     <div id="about-text">  
       <h2>🧊 What is LittleLofi?</h2>  
       <p>LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>  
@@ -192,13 +208,7 @@
       </a>  
   
       <img src="CLLofi.png" alt="Copy Contract" onclick="copyContract()" />  
-      <div id="copyMsg"></div>
-
-      <!-- 🔥 Botón de Play Game corregido -->
-      <a href="game/index.html" target="_blank">
-        <img src="PlayLL.png" alt="Play Game" />
-      </a>
-
+      <div id="copyMsg"></div>  
     </div>  
   
     <video src="LLofiTG.mp4" autoplay muted loop></video>  
