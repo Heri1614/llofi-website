@@ -13,7 +13,6 @@
       overflow-x: hidden;
     }
 
-    /* Fondo animado */
     body::before {
       content: "";
       position: fixed;
@@ -30,7 +29,6 @@
       100% { background-position: 1000px 1000px; }
     }
 
-    /* Copos de nieve animados */
     .snowflake {
       position: fixed;
       top: -10px;
@@ -41,14 +39,8 @@
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) translateX(20px);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) translateX(0); opacity: 1; }
+      100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
     }
 
     .banner {
@@ -77,6 +69,39 @@
       50% { transform: translate(1px, -1px) rotate(0.5deg); }
       75% { transform: translate(-1px, 1px) rotate(0deg); }
       100% { transform: translate(0px, -1px) rotate(-0.5deg); }
+    }
+
+    .accordion-btn {
+      background-color: rgba(255,255,255,0.08);
+      color: #c4f3ff;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #69eaff55;
+    }
+
+    .accordion-btn:hover {
+      background-color: rgba(255,255,255,0.15);
+    }
+
+    .accordion-content {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px #69eaff33;
+      border-radius: 20px;
+      padding: 30px;
+      color: #c4f3ff;
+      backdrop-filter: blur(8px);
+      display: none;
+      text-align: center;
+      transition: all 0.4s ease;
     }
 
     .container {
@@ -135,28 +160,6 @@
       transition: opacity 0.3s;
     }
 
-    /* Caja flotante de "What is LittleLofi" */
-    .frosted-box {
-      margin: 40px auto;
-      max-width: 800px;
-      padding: 30px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px #69eaff33;
-      color: #c4f3ff;
-      backdrop-filter: blur(8px);
-      text-align: center;
-      z-index: 2;
-      position: relative;
-    }
-
-    .frosted-box h2 {
-      margin-bottom: 15px;
-      font-size: 2em;
-    }
-
-    /* Responsive */
     @media screen and (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -177,18 +180,15 @@
 </head>
 <body>
 
-  <!-- Copos de nieve -->
   <div id="snow"></div>
-
-  <!-- Banner -->
   <div class="banner"></div>
-
-  <!-- Título -->
   <h1>LittleLofi</h1>
 
-  <!-- Caja de cristal -->
-  <div class="frosted-box">
-    <h2>🧊 What is LittleLofi?</h2>
+  <!-- Botón acordeón -->
+  <button class="accordion-btn" onclick="toggleAccordion()">🧊 About LittleLofi</button>
+
+  <!-- Contenido plegable -->
+  <div id="accordionContent" class="accordion-content">
     <p>
       LittleLofi is not just another memecoin.<br>
       He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
@@ -201,14 +201,11 @@
     </p>
   </div>
 
-  <!-- Contenido central -->
   <div class="container">
-    <!-- Imagen -->
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
 
-    <!-- Botones -->
     <div class="buttons">
       <a href="https://x.com/LittleLofiSui" target="_blank"><img src="XLLofi.png" alt="X" /></a>
       <a href="https://t.me/LittleLofiOfficial" target="_blank"><img src="TGLLofi.png" alt="Telegram" /></a>
@@ -217,14 +214,11 @@
       <div id="copyMsg"></div>
     </div>
 
-    <!-- Video -->
     <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
-  <!-- Sonido copiado -->
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
 
-  <!-- Script -->
   <script>
     function copyContract() {
       const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
@@ -235,6 +229,11 @@
           document.getElementById("copyMsg").innerText = "";
         }, 2000);
       });
+    }
+
+    function toggleAccordion() {
+      const content = document.getElementById("accordionContent");
+      content.style.display = content.style.display === "block" ? "none" : "block";
     }
 
     const snowContainer = document.getElementById("snow");
@@ -249,5 +248,6 @@
       snowContainer.appendChild(snowflake);
     }
   </script>
+
 </body>
 </html>
