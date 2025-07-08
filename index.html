@@ -11,20 +11,7 @@
       font-family: 'Iceberg', sans-serif;
       background-color: black;
       overflow-x: hidden;
-    }
-
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      z-index: 9999;
       color: white;
-      font-size: 1em;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0) translateX(0); opacity: 1; }
-      100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
     }
 
     .banner {
@@ -107,49 +94,16 @@
       box-shadow: 0 0 20px #69eaff;
     }
 
-    /* Acordeón */
-    .accordion-button {
-      margin: 40px auto 10px;
-      display: block;
-      background-color: rgba(255, 255, 255, 0.05);
-      color: #c4f3ff;
-      border: 1px solid #69eaff55;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px #69eaff33;
-      backdrop-filter: blur(6px);
-    }
-
-    .accordion-button:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 25px #69eaff;
-    }
-
-    .accordion-content {
-      max-width: 800px;
-      margin: 0 auto 40px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px #69eaff33;
-      border-radius: 20px;
-      padding: 30px;
-      color: #c4f3ff;
-      backdrop-filter: blur(8px);
+    #about-text {
       display: none;
-      text-align: center;
-      transition: all 0.4s ease;
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-    }
-
-    .accordion-content.open {
-      display: block;
-      opacity: 1;
-      max-height: 1000px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #69eaff;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 90%;
+      box-shadow: 0 0 15px #69eaff;
+      backdrop-filter: blur(10px);
     }
 
     @media screen and (max-width: 768px) {
@@ -172,27 +126,8 @@
 </head>
 <body>
 
-  <div id="snow"></div>
   <div class="banner"></div>
   <h1>LittleLofi</h1>
-
-  <!-- Botón Acordeón -->
-  <button class="accordion-button" onclick="toggleAccordion()">About LittleLofi</button>
-
-  <!-- Contenido Acordeón -->
-  <div class="accordion-content" id="accordionContent">
-    <h2>🧊 What is LittleLofi?</h2>
-    <p>
-      LittleLofi is not just another memecoin.<br>
-      He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
-      He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
-      <strong>LittleLofi is the symbol of rebirth on Sui:</strong><br>
-      Fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
-      No hype. No VCs. Just vibes and vision.<br><br>
-      <em>Join the movement.<br>
-      Let’s show the world that from the ice, a new king can rise.</em>
-    </p>
-  </div>
 
   <div class="container">
     <div class="left-image">
@@ -203,19 +138,33 @@
       <a href="https://x.com/LittleLofiSui" target="_blank">
         <img src="XLLofi.png" alt="X Link" />
       </a>
+
       <a href="https://t.me/LittleLofiOfficial" target="_blank">
-        <img src="TGLLofi.png" alt="Telegram Link" />
+        <img src="TGLLofi.png" alt="Telegram" />
       </a>
+
       <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
         <img src="CetusLLofi.png" alt="Buy on Cetus" />
       </a>
-      <a href="#" onclick="copyContract()">
-        <img src="CLLofi.png" alt="Copy Contract" />
-      </a>
+
+      <img src="CLLofi.png" alt="Copy Contract" onclick="copyContract()" />
+
+      <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />
+
       <div id="copyMsg"></div>
     </div>
 
     <video src="LLofiTG.mp4" autoplay muted loop></video>
+  </div>
+
+  <div id="about-text">
+    <h2>🧊 What is LittleLofi?</h2>
+    <p>LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
+    He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
+    LittleLofi is the symbol of rebirth on Sui: fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
+    No hype. No VCs. Just vibes and vision.<br><br>
+    <strong>Join the movement.</strong><br>
+    Let’s show the world that from the ice, a new king can rise.</p>
   </div>
 
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
@@ -232,24 +181,12 @@
       });
     }
 
-    function toggleAccordion() {
-      const content = document.getElementById("accordionContent");
-      content.classList.toggle("open");
-    }
-
-    // Copos de nieve animados
-    const snowContainer = document.getElementById("snow");
-    for (let i = 0; i < 80; i++) {
-      const snowflake = document.createElement("div");
-      snowflake.className = "snowflake";
-      snowflake.textContent = "❄️";
-      snowflake.style.left = Math.random() * 100 + "vw";
-      snowflake.style.animationDuration = 3 + Math.random() * 5 + "s";
-      snowflake.style.fontSize = 10 + Math.random() * 20 + "px";
-      snowflake.style.opacity = Math.random();
-      snowContainer.appendChild(snowflake);
+    function toggleAbout() {
+      const aboutBox = document.getElementById("about-text");
+      aboutBox.style.display = (aboutBox.style.display === "none" || !aboutBox.style.display)
+        ? "block"
+        : "none";
     }
   </script>
-
 </body>
 </html>
