@@ -11,22 +11,7 @@
       font-family: 'Iceberg', sans-serif;
       background-color: black;
       overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://www.transparenttextures.com/patterns/ice.png') repeat;
-      animation: moveBg 30s linear infinite;
-      opacity: 0.03;
-      z-index: 0;
-    }
-
-    @keyframes moveBg {
-      0% { background-position: 0 0; }
-      100% { background-position: 1000px 1000px; }
+      background: url('background-loop.gif') center center / cover no-repeat fixed;
     }
 
     .snowflake {
@@ -59,8 +44,6 @@
       color: #c4f3ff;
       text-shadow: 0 0 10px #69eaff, 0 0 20px #69eaff;
       animation: shake 2s infinite;
-      position: relative;
-      z-index: 2;
     }
 
     @keyframes shake {
@@ -71,39 +54,6 @@
       100% { transform: translate(0px, -1px) rotate(-0.5deg); }
     }
 
-    .accordion-btn {
-      background-color: rgba(255,255,255,0.08);
-      color: #c4f3ff;
-      font-size: 1.2em;
-      padding: 15px 30px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px #69eaff55;
-    }
-
-    .accordion-btn:hover {
-      background-color: rgba(255,255,255,0.15);
-    }
-
-    .accordion-content {
-      max-width: 800px;
-      margin: 0 auto 40px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px #69eaff33;
-      border-radius: 20px;
-      padding: 30px;
-      color: #c4f3ff;
-      backdrop-filter: blur(8px);
-      display: none;
-      text-align: center;
-      transition: all 0.4s ease;
-    }
-
     .container {
       display: flex;
       flex-direction: row;
@@ -111,8 +61,6 @@
       align-items: center;
       padding: 20px;
       flex-wrap: wrap;
-      position: relative;
-      z-index: 2;
     }
 
     .left-image {
@@ -146,6 +94,13 @@
       filter: drop-shadow(0 0 10px #69eaff);
     }
 
+    #copyMsg {
+      color: white;
+      margin-top: 10px;
+      font-size: 0.9em;
+      transition: opacity 0.3s;
+    }
+
     video {
       flex: 1;
       max-width: 400px;
@@ -153,11 +108,49 @@
       box-shadow: 0 0 20px #69eaff;
     }
 
-    #copyMsg {
-      color: white;
-      margin-top: 10px;
-      font-size: 0.9em;
-      transition: opacity 0.3s;
+    /* Acordeón */
+    .accordion-button {
+      margin: 40px auto 10px;
+      display: block;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #c4f3ff;
+      border: 1px solid #69eaff55;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px #69eaff33;
+      backdrop-filter: blur(6px);
+    }
+
+    .accordion-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 25px #69eaff;
+    }
+
+    .accordion-content {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px #69eaff33;
+      border-radius: 20px;
+      padding: 30px;
+      color: #c4f3ff;
+      backdrop-filter: blur(8px);
+      display: none;
+      text-align: center;
+      transition: all 0.4s ease;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    .accordion-content.open {
+      display: block;
+      opacity: 1;
+      max-height: 1000px;
     }
 
     @media screen and (max-width: 768px) {
@@ -184,20 +177,21 @@
   <div class="banner"></div>
   <h1>LittleLofi</h1>
 
-  <!-- Botón acordeón -->
-  <button class="accordion-btn" onclick="toggleAccordion()">🧊 About LittleLofi</button>
+  <!-- Botón Acordeón -->
+  <button class="accordion-button" onclick="toggleAccordion()">About LittleLofi</button>
 
-  <!-- Contenido plegable -->
-  <div id="accordionContent" class="accordion-content">
+  <!-- Contenido Acordeón -->
+  <div class="accordion-content" id="accordionContent">
+    <h2>🧊 What is LittleLofi?</h2>
     <p>
       LittleLofi is not just another memecoin.<br>
       He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
       He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
-      LittleLofi is the symbol of rebirth on Sui:<br>
-      fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
+      <strong>LittleLofi is the symbol of rebirth on Sui:</strong><br>
+      Fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
       No hype. No VCs. Just vibes and vision.<br><br>
-      Join the movement.<br>
-      Let’s show the world that from the ice, a new king can rise.
+      <em>Join the movement.<br>
+      Let’s show the world that from the ice, a new king can rise.</em>
     </p>
   </div>
 
@@ -207,10 +201,18 @@
     </div>
 
     <div class="buttons">
-      <a href="https://x.com/LittleLofiSui" target="_blank"><img src="XLLofi.png" alt="X" /></a>
-      <a href="https://t.me/LittleLofiOfficial" target="_blank"><img src="TGLLofi.png" alt="Telegram" /></a>
-      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank"><img src="CetusLLofi.png" alt="Cetus" /></a>
-      <a onclick="copyContract()"><img src="CLLofi.png" alt="Copy Contract" /></a>
+      <a href="https://x.com/LittleLofiSui" target="_blank">
+        <img src="XLLofi.png" alt="X Link" />
+      </a>
+      <a href="https://t.me/LittleLofiOfficial" target="_blank">
+        <img src="TGLLofi.png" alt="Telegram Link" />
+      </a>
+      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
+        <img src="CetusLLofi.png" alt="Buy on Cetus" />
+      </a>
+      <a href="#" onclick="copyContract()">
+        <img src="CLLofi.png" alt="Copy Contract" />
+      </a>
       <div id="copyMsg"></div>
     </div>
 
@@ -233,9 +235,10 @@
 
     function toggleAccordion() {
       const content = document.getElementById("accordionContent");
-      content.style.display = content.style.display === "block" ? "none" : "block";
+      content.classList.toggle("open");
     }
 
+    // Copos de nieve animados
     const snowContainer = document.getElementById("snow");
     for (let i = 0; i < 80; i++) {
       const snowflake = document.createElement("div");
