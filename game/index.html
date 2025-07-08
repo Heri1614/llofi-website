@@ -1,128 +1,229 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LittleLofi Catch Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LittleLofi - Game</title>
   <style>
     body {
-      margin: 0;
-      background: #001122;
+      background-color: #000;
       color: white;
-      font-family: sans-serif;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    canvas {
+      display: block;
+      margin: auto;
+      background: #1a1a1a;
+      border: 2px solid #69eaff;
+      border-radius: 10px;
+    }
+
+    #score {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 18px;
+      color: #69eaff;
+      z-index: 100;
+    }
+
+    .end-screen {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      font-size: 26px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      display: none;
+      z-index: 100;
+    }
+
+    .touch-controls {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+      z-index: 100;
+    }
+
+    .touch-button {
+      width: 60px;
+      height: 60px;
+      background-color: #69eaff;
+      border: none;
+      border-radius: 50%;
+      font-size: 30px;
+      color: #000;
+      display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }canvas {
-  background: linear-gradient(#003355, #001122);
-  border: 2px solid white;
-}
+      box-shadow: 0 0 10px #69eaff;
+    }
 
-.menu {
-  margin-top: 1rem;
-}
-
-.menu button {
-  padding: 10px 20px;
-  background: #00ccff;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 0 5px;
-}
-
+    @media screen and (min-width: 768px) {
+      .touch-controls {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="360" height="600"></canvas>  <div class="menu">
-    <button onclick="window.location.href='index.html'">Volver al inicio</button>
-  </div>  <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
 
-    const lofi = {
-      x: 150,
-      y: 520,
-      width: 60,
-      height: 60,
-      color: '#55f'
+  <canvas id="gameCanvas"></canvas>
+  <div id="score">Score: 0</div>
+
+  <div id="endScreen" class="end-screen">
+    <p>Game Over!</p>
+    <p>Your Score: <span id="finalScore">0</span></p>
+    <button onclick="restartGame()">Play Again</button>
+  </div>
+
+  <!-- Botones táctiles solo visibles en móviles -->
+  <div class="touch-controls">
+    <button class="touch-button" id="leftBtn">◀</button>
+    <button class="touch-button" id="rightBtn">▶</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let score = 0;
+    let isGameOver = false;
+
+    const player = {
+      width: 50,
+      height: 50,
+      x: canvas.width / 2 - 25,
+      y: canvas.height - 70,
+      speed: 7
     };
 
-    const snowflakes = [];
-    let score = 0;
+    const blocks = [];
 
-    function drawLofi() {
-      ctx.fillStyle = lofi.color;
-      ctx.fillRect(lofi.x, lofi.y, lofi.width, lofi.height);
+    function drawPlayer() {
+      ctx.fillStyle = "#69eaff";
+      ctx.fillRect(player.x, player.y, player.width, player.height);
     }
 
-    function drawSnowflake(flake) {
-      ctx.beginPath();
-      ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'white';
-      ctx.fill();
-      ctx.closePath();
+    function movePlayer() {
+      if (leftPressed && player.x > 0) player.x -= player.speed;
+      if (rightPressed && player.x < canvas.width - player.width) player.x += player.speed;
     }
 
-    function updateSnowflakes() {
-      for (let i = 0; i < snowflakes.length; i++) {
-        snowflakes[i].y += 2;
-
-        if (
-          snowflakes[i].y > lofi.y &&
-          snowflakes[i].x > lofi.x &&
-          snowflakes[i].x < lofi.x + lofi.width
-        ) {
-          snowflakes.splice(i, 1);
-          score++;
-          i--;
-        } else if (snowflakes[i].y > canvas.height) {
-          snowflakes.splice(i, 1);
-          i--;
-        }
-      }
-    }
-
-    function spawnSnowflake() {
+    function spawnBlock() {
       if (Math.random() < 0.03) {
-        snowflakes.push({
-          x: Math.random() * canvas.width,
-          y: 0,
-          radius: 5 + Math.random() * 5
+        blocks.push({
+          x: Math.random() * (canvas.width - 30),
+          y: -30,
+          width: 30,
+          height: 30
         });
       }
     }
 
-    function drawScore() {
-      ctx.fillStyle = 'white';
-      ctx.font = '20px Arial';
-      ctx.fillText('Puntos: ' + score, 10, 25);
+    function moveBlocks() {
+      for (let i = 0; i < blocks.length; i++) {
+        blocks[i].y += 4;
+
+        if (
+          blocks[i].y + blocks[i].height >= player.y &&
+          blocks[i].x + blocks[i].width >= player.x &&
+          blocks[i].x <= player.x + player.width
+        ) {
+          gameOver();
+        }
+
+        if (blocks[i].y > canvas.height) {
+          blocks.splice(i, 1);
+          score++;
+        }
+      }
     }
 
+    function drawBlocks() {
+      ctx.fillStyle = "red";
+      for (let block of blocks) {
+        ctx.fillRect(block.x, block.y, block.width, block.height);
+      }
+    }
+
+    function drawScore() {
+      document.getElementById("score").textContent = "Score: " + score;
+    }
+
+    function gameOver() {
+      isGameOver = true;
+      document.getElementById("endScreen").style.display = "block";
+      document.getElementById("finalScore").textContent = score;
+    }
+
+    function restartGame() {
+      score = 0;
+      blocks.length = 0;
+      player.x = canvas.width / 2 - 25;
+      isGameOver = false;
+      document.getElementById("endScreen").style.display = "none";
+      gameLoop();
+    }
+
+    let leftPressed = false;
+    let rightPressed = false;
+
+    // Teclado
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft") leftPressed = true;
+      if (e.key === "ArrowRight") rightPressed = true;
+    });
+
+    window.addEventListener("keyup", e => {
+      if (e.key === "ArrowLeft") leftPressed = false;
+      if (e.key === "ArrowRight") rightPressed = false;
+    });
+
+    // Táctil
+    const leftBtn = document.getElementById("leftBtn");
+    const rightBtn = document.getElementById("rightBtn");
+
+    leftBtn.addEventListener("touchstart", () => (leftPressed = true));
+    leftBtn.addEventListener("touchend", () => (leftPressed = false));
+
+    rightBtn.addEventListener("touchstart", () => (rightPressed = true));
+    rightBtn.addEventListener("touchend", () => (rightPressed = false));
+
     function gameLoop() {
+      if (isGameOver) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      drawLofi();
-      snowflakes.forEach(drawSnowflake);
-      updateSnowflakes();
-      spawnSnowflake();
+      movePlayer();
+      drawPlayer();
+      spawnBlock();
+      moveBlocks();
+      drawBlocks();
       drawScore();
-
       requestAnimationFrame(gameLoop);
     }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft' && lofi.x > 0) {
-        lofi.x -= 10;
-      } else if (e.key === 'ArrowRight' && lofi.x + lofi.width < canvas.width) {
-        lofi.x += 10;
-      }
-    });
-
     gameLoop();
-  </script></body>
+  </script>
+</body>
 </html>
