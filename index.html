@@ -9,8 +9,25 @@
     body {
       margin: 0;
       font-family: 'Iceberg', sans-serif;
-      background-color: black; /* ← Fondo regresado a negro */
+      background-color: black;
       overflow-x: hidden;
+    }
+
+    /* Fondo animado */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/ice.png') repeat;
+      animation: moveBg 30s linear infinite;
+      opacity: 0.03;
+      z-index: 0;
+    }
+
+    @keyframes moveBg {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
     }
 
     /* Copos de nieve animados */
@@ -24,11 +41,16 @@
     }
 
     @keyframes fall {
-      0% { transform: translateY(0) translateX(0); opacity: 1; }
-      100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(20px);
+        opacity: 0;
+      }
     }
 
-    /* Banner superior */
     .banner {
       width: 100%;
       height: 20vh;
@@ -37,7 +59,6 @@
       background-position: center;
     }
 
-    /* Título congelado */
     h1 {
       font-size: 3em;
       text-align: center;
@@ -46,6 +67,8 @@
       color: #c4f3ff;
       text-shadow: 0 0 10px #69eaff, 0 0 20px #69eaff;
       animation: shake 2s infinite;
+      position: relative;
+      z-index: 2;
     }
 
     @keyframes shake {
@@ -56,20 +79,6 @@
       100% { transform: translate(0px, -1px) rotate(-0.5deg); }
     }
 
-    .intro-section {
-      max-width: 900px;
-      margin: 30px auto;
-      background: rgba(0, 68, 102, 0.4);
-      border-radius: 15px;
-      padding: 25px;
-      color: #e0faff;
-      box-shadow: 0 0 15px rgba(105, 234, 255, 0.4);
-      font-size: 1.2em;
-      line-height: 1.6em;
-      backdrop-filter: blur(5px);
-      text-align: center;
-    }
-
     .container {
       display: flex;
       flex-direction: row;
@@ -77,6 +86,8 @@
       align-items: center;
       padding: 20px;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
     }
 
     .left-image {
@@ -110,13 +121,6 @@
       filter: drop-shadow(0 0 10px #69eaff);
     }
 
-    #copyMsg {
-      color: white;
-      margin-top: 10px;
-      font-size: 0.9em;
-      transition: opacity 0.3s;
-    }
-
     video {
       flex: 1;
       max-width: 400px;
@@ -124,7 +128,35 @@
       box-shadow: 0 0 20px #69eaff;
     }
 
-    /* Responsive para móvil */
+    #copyMsg {
+      color: white;
+      margin-top: 10px;
+      font-size: 0.9em;
+      transition: opacity 0.3s;
+    }
+
+    /* Caja flotante de "What is LittleLofi" */
+    .frosted-box {
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 30px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px #69eaff33;
+      color: #c4f3ff;
+      backdrop-filter: blur(8px);
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .frosted-box h2 {
+      margin-bottom: 15px;
+      font-size: 2em;
+    }
+
+    /* Responsive */
     @media screen and (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -154,46 +186,34 @@
   <!-- Título -->
   <h1>LittleLofi</h1>
 
-  <!-- Sección informativa -->
-  <div class="intro-section">
+  <!-- Caja de cristal -->
+  <div class="frosted-box">
     <h2>🧊 What is LittleLofi?</h2>
     <p>
-      LittleLofi is not just another memecoin.<br/>
-      He’s a frozen dream, born from the cold silence of forgotten tokens.<br/>
-      He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.
-    </p>
-    <p>
-      LittleLofi is the symbol of rebirth on Sui:<br/>
-      fair launched, community-driven, 100% transparent, and full of heart. 💙
-    </p>
-    <p>
-      No hype. No VCs. Just vibes and vision.<br/>
-      Join the movement.<br/>
+      LittleLofi is not just another memecoin.<br>
+      He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
+      He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
+      LittleLofi is the symbol of rebirth on Sui:<br>
+      fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
+      No hype. No VCs. Just vibes and vision.<br><br>
+      Join the movement.<br>
       Let’s show the world that from the ice, a new king can rise.
     </p>
   </div>
 
   <!-- Contenido central -->
   <div class="container">
-    <!-- Imagen izquierda -->
+    <!-- Imagen -->
     <div class="left-image">
       <img src="llofi-banner.png" alt="LittleLofi Banner" />
     </div>
 
     <!-- Botones -->
     <div class="buttons">
-      <a href="https://x.com/LittleLofiSui" target="_blank">
-        <img src="XLLofi.png" alt="X Link" />
-      </a>
-      <a href="https://t.me/LittleLofiOfficial" target="_blank">
-        <img src="TGLLofi.png" alt="Telegram" />
-      </a>
-      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
-        <img src="CetusLLofi.png" alt="Buy on Cetus" />
-      </a>
-      <a href="#" onclick="copyContract()">
-        <img src="CLLofi.png" alt="Copy Contract" />
-      </a>
+      <a href="https://x.com/LittleLofiSui" target="_blank"><img src="XLLofi.png" alt="X" /></a>
+      <a href="https://t.me/LittleLofiOfficial" target="_blank"><img src="TGLLofi.png" alt="Telegram" /></a>
+      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank"><img src="CetusLLofi.png" alt="Cetus" /></a>
+      <a onclick="copyContract()"><img src="CLLofi.png" alt="Copy Contract" /></a>
       <div id="copyMsg"></div>
     </div>
 
@@ -201,7 +221,7 @@
     <video src="LLofiTG.mp4" autoplay muted loop></video>
   </div>
 
-  <!-- Audio -->
+  <!-- Sonido copiado -->
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
 
   <!-- Script -->
@@ -229,6 +249,5 @@
       snowContainer.appendChild(snowflake);
     }
   </script>
-
 </body>
 </html>
