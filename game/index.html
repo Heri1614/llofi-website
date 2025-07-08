@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LittleLofi Catch Game</title>
+  <style>
+    body {
+      margin: 0;
+      background: #001122;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }canvas {
+  background: linear-gradient(#003355, #001122);
+  border: 2px solid white;
+}
+
+.menu {
+  margin-top: 1rem;
+}
+
+.menu button {
+  padding: 10px 20px;
+  background: #00ccff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="360" height="600"></canvas>  <div class="menu">
+    <button onclick="window.location.href='index.html'">Volver al inicio</button>
+  </div>  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const lofi = {
+      x: 150,
+      y: 520,
+      width: 60,
+      height: 60,
+      color: '#55f'
+    };
+
+    const snowflakes = [];
+    let score = 0;
+
+    function drawLofi() {
+      ctx.fillStyle = lofi.color;
+      ctx.fillRect(lofi.x, lofi.y, lofi.width, lofi.height);
+    }
+
+    function drawSnowflake(flake) {
+      ctx.beginPath();
+      ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function updateSnowflakes() {
+      for (let i = 0; i < snowflakes.length; i++) {
+        snowflakes[i].y += 2;
+
+        if (
+          snowflakes[i].y > lofi.y &&
+          snowflakes[i].x > lofi.x &&
+          snowflakes[i].x < lofi.x + lofi.width
+        ) {
+          snowflakes.splice(i, 1);
+          score++;
+          i--;
+        } else if (snowflakes[i].y > canvas.height) {
+          snowflakes.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    function spawnSnowflake() {
+      if (Math.random() < 0.03) {
+        snowflakes.push({
+          x: Math.random() * canvas.width,
+          y: 0,
+          radius: 5 + Math.random() * 5
+        });
+      }
+    }
+
+    function drawScore() {
+      ctx.fillStyle = 'white';
+      ctx.font = '20px Arial';
+      ctx.fillText('Puntos: ' + score, 10, 25);
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      drawLofi();
+      snowflakes.forEach(drawSnowflake);
+      updateSnowflakes();
+      spawnSnowflake();
+      drawScore();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && lofi.x > 0) {
+        lofi.x -= 10;
+      } else if (e.key === 'ArrowRight' && lofi.x + lofi.width < canvas.width) {
+        lofi.x += 10;
+      }
+    });
+
+    gameLoop();
+  </script></body>
+</html>
