@@ -125,9 +125,22 @@
   </style>
 </head>
 <body>
-
   <div class="banner"></div>
   <h1>LittleLofi</h1>
+
+  <div class="buttons" style="margin-top: 20px;">
+    <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />
+  </div>
+
+  <div id="about-text">
+    <h2>🧊 What is LittleLofi?</h2>
+    <p>LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
+    He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
+    LittleLofi is the symbol of rebirth on Sui: fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
+    No hype. No VCs. Just vibes and vision.<br><br>
+    <strong>Join the movement.</strong><br>
+    Let’s show the world that from the ice, a new king can rise.</p>
+  </div>
 
   <div class="container">
     <div class="left-image">
@@ -148,23 +161,10 @@
       </a>
 
       <img src="CLLofi.png" alt="Copy Contract" onclick="copyContract()" />
-
-      <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />
-
       <div id="copyMsg"></div>
     </div>
 
     <video src="LLofiTG.mp4" autoplay muted loop></video>
-  </div>
-
-  <div id="about-text">
-    <h2>🧊 What is LittleLofi?</h2>
-    <p>LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
-    He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
-    LittleLofi is the symbol of rebirth on Sui: fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
-    No hype. No VCs. Just vibes and vision.<br><br>
-    <strong>Join the movement.</strong><br>
-    Let’s show the world that from the ice, a new king can rise.</p>
   </div>
 
   <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
@@ -183,9 +183,11 @@
 
     function toggleAbout() {
       const aboutBox = document.getElementById("about-text");
-      aboutBox.style.display = (aboutBox.style.display === "none" || !aboutBox.style.display)
-        ? "block"
-        : "none";
+      if (aboutBox.style.display === "none" || !aboutBox.style.display) {
+        aboutBox.style.display = "block";
+      } else {
+        aboutBox.style.display = "none";
+      }
     }
   </script>
 </body>
