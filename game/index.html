@@ -1,189 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LittleLofi Game</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LittleLofi Game</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #d8ecf1; /* fondo claro tipo hielo */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      canvas {
+        border: 2px solid #00ccff;
+        background-color: #d8ecf1;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="360" height="640"></canvas>
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");const playerImage = new Image();
+  playerImage.src = "littlelofi.png";
 
-    body {
-      background-color: #111;
-      font-family: sans-serif;
-      color: #69eaff;
-      overflow: hidden;
-    }
+  const bombImage = new Image();
+  bombImage.src = "bomb.png";
 
-    canvas {
-      display: block;
-      margin: 0 auto;
-      background-color: #222;
-      border: 2px solid #69eaff;
-      position: relative;
-    }
+  const player = {
+    x: canvas.width / 2 - 25,
+    y: canvas.height - 80,
+    width: 50,
+    height: 50,
+  };
 
-    #gameOver {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.9);
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      display: none;
-      color: white;
-    }
-
-    #gameOver button {
-      padding: 10px 20px;
-      background: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 15px;
-      border-radius: 5px;
-    }
-
-  </style>
-</head>
-<body>
-
-<canvas id="gameCanvas" width="400" height="600"></canvas>
-<div id="gameOver">
-  <h2>Game Over!</h2>
-  <p id="finalScore"></p>
-  <button onclick="startGame()">Play Again</button>
-</div>
-
-<script>
-  const canvas = document.getElementById("gameCanvas");
-  const ctx = canvas.getContext("2d");
-
-  const playerImg = new Image();
-  playerImg.src = "littlelofi.png";
-
-  const bombImg = new Image();
-  bombImg.src = "bomb.png";
-
-  let player = { x: 175, y: 550, width: 50, height: 50, speed: 5 };
-  let bombs = [];
+  const bombs = [];
   let score = 0;
-  let gameRunning = true;
+  let gameOver = false;
 
   function drawPlayer() {
-    ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+    ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
   }
 
-  function drawBomb(bomb) {
-    ctx.drawImage(bombImg, bomb.x, bomb.y, bomb.size, bomb.size);
+  function drawBombs() {
+    bombs.forEach((bomb) => {
+      ctx.drawImage(bombImage, bomb.x, bomb.y, bomb.size, bomb.size);
+    });
   }
 
   function updateBombs() {
-    bombs.forEach(bomb => {
+    bombs.forEach((bomb, index) => {
       bomb.y += bomb.speed;
-    });
-
-    bombs = bombs.filter(bomb => {
+      if (bomb.y > canvas.height) {
+        bombs.splice(index, 1);
+        score++;
+      }
       if (
         bomb.x < player.x + player.width &&
         bomb.x + bomb.size > player.x &&
         bomb.y < player.y + player.height &&
         bomb.y + bomb.size > player.y
       ) {
-        gameOver();
-        return false;
+        gameOver = true;
       }
-      return bomb.y < canvas.height;
     });
   }
 
   function drawScore() {
-    ctx.fillStyle = "#69eaff";
+    ctx.fillStyle = "#00ccff";
     ctx.font = "20px Arial";
     ctx.fillText("Score: " + score, 10, 30);
+  }
+
+  function drawGameOver() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.fillRect(40, canvas.height / 2 - 100, 280, 150);
+
+    ctx.fillStyle = "white";
+    ctx.font = "24px Arial";
+    ctx.fillText("Game Over!", 110, canvas.height / 2 - 50);
+    ctx.font = "20px Arial";
+    ctx.fillText("Your Score: " + score, 100, canvas.height / 2 - 10);
+
+    const buttonX = 130;
+    const buttonY = canvas.height / 2 + 20;
+    const buttonWidth = 100;
+    const buttonHeight = 30;
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText("Play Again", buttonX + 10, buttonY + 20);
+
+    canvas.addEventListener("click", handleRestartClick);
+  }
+
+  function handleRestartClick(e) {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const buttonX = 130;
+    const buttonY = canvas.height / 2 + 20;
+    const buttonWidth = 100;
+    const buttonHeight = 30;
+
+    if (
+      mouseX >= buttonX &&
+      mouseX <= buttonX + buttonWidth &&
+      mouseY >= buttonY &&
+      mouseY <= buttonY + buttonHeight
+    ) {
+      location.reload();
+    }
   }
 
   function spawnBomb() {
     const size = 40;
     const x = Math.random() * (canvas.width - size);
-    const speed = 3 + Math.random() * 2;
-    bombs.push({ x, y: -size, size, speed });
-  }
-
-  function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const speed = 4 + Math.random() * 2;
+    bombs.push({ x, y: 0, size, speed });
   }
 
   function gameLoop() {
-    if (!gameRunning) return;
-    clearCanvas();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     drawPlayer();
-    updateBombs();
-    bombs.forEach(drawBomb);
+    drawBombs();
     drawScore();
-    score++;
-    requestAnimationFrame(gameLoop);
+    updateBombs();
+
+    if (!gameOver) {
+      requestAnimationFrame(gameLoop);
+    } else {
+      drawGameOver();
+    }
   }
 
-  function gameOver() {
-    gameRunning = false;
-    document.getElementById("finalScore").innerText = "Your Score: " + score;
-    document.getElementById("gameOver").style.display = "block";
-  }
+  // Movimiento por toque táctil
+  let touchStartX = 0;
 
-  function startGame() {
-    player.x = 175;
-    bombs = [];
-    score = 0;
-    gameRunning = true;
-    document.getElementById("gameOver").style.display = "none";
-    gameLoop();
-  }
-
-  // Swipe detection for mobile
-  let startX = 0;
-  canvas.addEventListener("touchstart", e => {
-    startX = e.touches[0].clientX;
+  canvas.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
   });
 
-  canvas.addEventListener("touchmove", e => {
-    let moveX = e.touches[0].clientX;
-    let deltaX = moveX - startX;
-
-    if (Math.abs(deltaX) > 20) {
-      if (deltaX > 0) {
-        player.x += player.speed * 3;
-      } else {
-        player.x -= player.speed * 3;
-      }
-      startX = moveX;
-    }
-
-    // límites
+  canvas.addEventListener("touchmove", (e) => {
+    const touchX = e.touches[0].clientX;
+    const dx = touchX - touchStartX;
+    touchStartX = touchX;
+    player.x += dx * 1.5; // Ajuste de velocidad táctil
     if (player.x < 0) player.x = 0;
     if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
   });
 
-  // Touch click para evitar scroll
-  canvas.addEventListener("touchend", e => {
-    e.preventDefault();
-  });
-
-  // Bombas periódicas
-  setInterval(() => {
-    if (gameRunning) spawnBomb();
-  }, 800);
-
-  // Start
-  window.onload = () => {
-    gameLoop();
-  };
+  setInterval(spawnBomb, 800);
+  gameLoop();
 </script>
 
-</body>
+  </body>
 </html>
