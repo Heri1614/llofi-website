@@ -1,194 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LittleLofi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Iceberg', sans-serif;
-      background-color: black;
-      overflow-x: hidden;
-      color: white;
-    }
+// App.jsx
+import React, { useState } from 'react';
+import './App.css';
 
-    .banner {
-      width: 100%;
-      height: 20vh;
-      background-image: url('BannerLL.png');
-      background-size: cover;
-      background-position: center;
-    }
+function App() {
+  const [showAbout, setShowAbout] = useState(false);
 
-    h1 {
-      font-size: 3em;
-      text-align: center;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: #c4f3ff;
-      text-shadow: 0 0 10px #69eaff, 0 0 20px #69eaff;
-      animation: shake 2s infinite;
-    }
+  const handleAboutClick = () => {
+    setShowAbout(!showAbout);
+  };
 
-    @keyframes shake {
-      0% { transform: translate(1px, 0px) rotate(0deg); }
-      25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
-      50% { transform: translate(1px, -1px) rotate(0.5deg); }
-      75% { transform: translate(-1px, 1px) rotate(0deg); }
-      100% { transform: translate(0px, -1px) rotate(-0.5deg); }
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText('0x1234567890abcdef');
+    alert('Contract address copied!');
+  };
 
-    .container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      flex-wrap: wrap;
-    }
+  return (
+    <div className="min-h-screen bg-black bg-ice-pattern bg-cover bg-fixed flex flex-col items-center text-white">
+      {/* ABOUT IMAGE BUTTON */}
+      <img
+        src="/AboutLL.png"
+        alt="About Button"
+        className="w-40 mt-4 cursor-pointer transition-transform hover:scale-105"
+        onClick={handleAboutClick}
+      />
 
-    .left-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      {/* About Text Box */}
+      {showAbout && (
+        <div
+          className="mt-6 p-6 w-full max-w-3xl text-white bg-black bg-opacity-80 rounded-lg border border-blue-300 shadow-lg flex justify-center"
+          style={{
+            textAlign: "left",
+            boxShadow: "0 0 15px rgba(0, 255, 255, 0.7)",
+          }}
+        >
+          <div className="w-full">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <span>🧊</span> What is LittleLofi?
+            </h2>
+            <p className="mb-2">
+              LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.
+            </p>
+            <p className="mb-2">
+              He has no whales behind him, no insiders, no shady promises – only a growing community ready to defy the odds.
+            </p>
+            <p className="mb-2">
+              LittleLofi is the symbol of rebirth on Sui: fair launched, community-driven, 100% transparent, and full of heart. 💙
+            </p>
+            <p className="mb-2">No hype. No VCs. Just vibes and vision.</p>
+            <p className="font-bold">Join the movement.</p>
+            <p>Let’s show the world that from the ice, a new king can rise.</p>
+          </div>
+        </div>
+      )}
 
-    .left-image img {
-      max-width: 300px;
-      height: auto;
-    }
-
-    .buttons {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .buttons img {
-      width: 160px;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .buttons img:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 10px #69eaff);
-    }
-
-    #copyMsg {
-      color: white;
-      margin-top: 10px;
-      font-size: 0.9em;
-      transition: opacity 0.3s;
-    }
-
-    video {
-      flex: 1;
-      max-width: 400px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #69eaff;
-    }
-
-    #about-text {
-      display: none;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #69eaff;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 90%;
-      box-shadow: 0 0 15px #69eaff;
-      backdrop-filter: blur(10px);
-    }
-
-    @media screen and (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      video {
-        margin-top: 20px;
-        width: 90%;
-      }
-
-      .left-image {
-        margin-bottom: 20px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="banner"></div>
-  <h1>LittleLofi</h1>
-
-  <div class="buttons" style="margin-top: 20px;">
-    <img src="AboutLL.png" alt="About LittleLofi" onclick="toggleAbout()" />
-  </div>
-
-  <div id="about-text">
-    <h2>🧊 What is LittleLofi?</h2>
-    <p>LittleLofi is not just another memecoin. He’s a frozen dream, born from the cold silence of forgotten tokens.<br><br>
-    He has no whales behind him, no insiders, no shady promises — only a growing community ready to defy the odds.<br><br>
-    LittleLofi is the symbol of rebirth on Sui: fair launched, community-driven, 100% transparent, and full of heart. 💙<br><br>
-    No hype. No VCs. Just vibes and vision.<br><br>
-    <strong>Join the movement.</strong><br>
-    Let’s show the world that from the ice, a new king can rise.</p>
-  </div>
-
-  <div class="container">
-    <div class="left-image">
-      <img src="llofi-banner.png" alt="LittleLofi Banner" />
+      {/* Enlaces principales */}
+      <div className="mt-10 space-y-6">
+        <a href="https://x.com/LittleLofiSui" target="_blank" rel="noopener noreferrer">
+          <img src="/XLLofi.png" alt="X Button" className="w-48 hover:scale-105 transition-transform" />
+        </a>
+        <a href="https://t.me/LittleLofiOfficial" target="_blank" rel="noopener noreferrer">
+          <img src="/TGLLofi.png" alt="Telegram Button" className="w-48 hover:scale-105 transition-transform" />
+        </a>
+        <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank" rel="noopener noreferrer">
+          <img src="/CetusLLofi.png" alt="Cetus Button" className="w-48 hover:scale-105 transition-transform" />
+        </a>
+        <button onClick={handleCopy}>
+          <img src="/CLLofi.png" alt="Copy Contract Button" className="w-48 hover:scale-105 transition-transform" />
+        </button>
+      </div>
     </div>
+  );
+}
 
-    <div class="buttons">
-      <a href="https://x.com/LittleLofiSui" target="_blank">
-        <img src="XLLofi.png" alt="X Link" />
-      </a>
+export default App;
 
-      <a href="https://t.me/LittleLofiOfficial" target="_blank">
-        <img src="TGLLofi.png" alt="Telegram" />
-      </a>
+/* App.css */
+.bg-ice-pattern {
+  background-image: url('/background.png'); /* o usa una textura animada tipo hielo */
+  background-size: cover;
+  background-position: center;
+  animation: moveBackground 60s linear infinite;
+}
 
-      <a href="https://app.cetus.zone/swap/0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI/0x2::sui::SUI" target="_blank">
-        <img src="CetusLLofi.png" alt="Buy on Cetus" />
-      </a>
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
 
-      <img src="CLLofi.png" alt="Copy Contract" onclick="copyContract()" />
-      <div id="copyMsg"></div>
-    </div>
-
-    <video src="LLofiTG.mp4" autoplay muted loop></video>
-  </div>
-
-  <audio id="copySound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c78d1a6f8c.mp3"></audio>
-
-  <script>
-    function copyContract() {
-      const contract = "0x1e62f88b0f89ef8d6480fd09d10e6cc6d5692732dad2bb7465a700d5735a9f25::llofi::LLOFI";
-      navigator.clipboard.writeText(contract).then(() => {
-        document.getElementById("copyMsg").innerText = "✅ Contract copied!";
-        document.getElementById("copySound").play();
-        setTimeout(() => {
-          document.getElementById("copyMsg").innerText = "";
-        }, 2000);
-      });
-    }
-
-    function toggleAbout() {
-      const aboutBox = document.getElementById("about-text");
-      if (aboutBox.style.display === "none" || !aboutBox.style.display) {
-        aboutBox.style.display = "block";
-      } else {
-        aboutBox.style.display = "none";
-      }
-    }
-  </script>
-</body>
-</html>
+/* Asegúrate de incluir tailwind.config.js extendido si usas Tailwind con estilos personalizados */
